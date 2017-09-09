@@ -12,6 +12,7 @@
             <table class="table table-striped table-bordered table-hover table-header-fixed" id="sample_1">
                 <thead>
                     <tr>
+                        <th>Action</th>
                         <th>IMG</th>
                         <th>Name</th>
                         <th>Phone</th>
@@ -20,12 +21,30 @@
                         <th>Acc. Type</th>
                         <th>FO</th>
                         <th>Join date</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php foreach($memberList as $each): ?>
                     <tr id="rowId-<?php echo $each['memId']; ?>">
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-sliders fa-2x" aria-hidden="true"></i>
+                                    <i class="fa fa-angle-down fa-2x"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="<?php echo base_url('users/editMember/').$each['memId'];?>" id="collapsSide"><i class="fa fa-eye" aria-hidden="true"></i> View</a> 
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo base_url('users/editMember/').$each['memId'];?>" id="collapsSide"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> 
+                                    </li>
+                                    <li>
+                                        <a href="#" class="confirmation_but" data-popout="true" data-singleton="true" data-placement="left" data-id="<?php echo $each['memId'];?>"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                        </td>
                         <td><img src="<?php echo base_url('uploads/members/member').$each['memId'].'.jpg'; ?>" alt="" width="50px" height="50px"></td>
                         <td><?php echo $each['memName']; ?></td>
                         <td><?php echo $each['memPhn']; ?></td>
@@ -34,10 +53,9 @@
                         <td><?php echo $each['acType']; ?></td>
                         <td><?php echo $each['memFO']; ?></td>
                         <td><?php echo $each['memJnDate']; ?></td>
-                        <td>
-                            <a href="<?php echo base_url('users/editMember/').$each['memId'];?>" id="collapsSide" class="btn btn-info btn-xs">View/Edit</a>
-                            <a href="#" class="btn btn-danger btn-xs confirmation_but" data-popout="true" data-singleton="true" data-placement="left" data-id="<?php echo $each['memId'];?>">Delete</a>
-                        </td>
+                        
+                        
+                            
                     </tr>       
                 <?php endforeach; ?>
                 </tbody>
