@@ -1,3 +1,14 @@
+<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-body">
+            <img src="../assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
+            <span> &nbsp;&nbsp;Loading... </span>
+        </div>
+    </div>
+</div>
+</div>
+
 <!-- FOR DATATABLE -- START -->
 <script src="<?php echo base_url();?>assets/global/scripts/datatable.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
@@ -45,8 +56,9 @@
         }, 5000);        
     }
 
-
     $(document).ready(function() { 
+
+        
 
         /* DELETE MEMBER */
         var last_clicked_id = null;

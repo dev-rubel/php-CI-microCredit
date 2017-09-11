@@ -15,4 +15,7 @@
     .portlet-body input {
         border-radius: 0px;
     }
+    .btn:not(.md-skip):not(.bs-select-all):not(.bs-deselect-all).btn-xs {        
+        padding: 6px 8px;
+    }
 </style>

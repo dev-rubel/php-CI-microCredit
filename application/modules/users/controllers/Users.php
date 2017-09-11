@@ -58,6 +58,13 @@ class Users extends MX_Controller
         }
         
     }
+
+    public function viewMember() 
+    {
+        $memberId = $this->uri->segment(3);
+        $data['memberInformation'] = $this->UsersModel->getMemberInfo($memberId);
+        $this->load->view($this->uType.'/'.'viewMember', $data);
+    }
     
     public function memberList() 
     {
