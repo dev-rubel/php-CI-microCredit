@@ -33,10 +33,7 @@
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="#" onclick="memberView('<?php echo base_url('users/viewMember/').$each['memId'];?>')"><i class="fa fa-eye" aria-hidden="true"></i> View</a> 
-                                    </li>
-                                    <li>
-                                        <a class="" href="<?php echo base_url('users/viewMember/').$each['memId'];?>" data-target="#ajax" data-toggle="modal"> View Demo </a>
+                                        <a class="#" href="<?php echo base_url('users/viewMember/').$each['memId'];?>" data-target="#ajax" data-toggle="modal"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
                                     </li>
                                     <li>
                                         <a href="<?php echo base_url('users/editMember/').$each['memId'];?>" id="collapsSide"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> 
