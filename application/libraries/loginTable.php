@@ -25,9 +25,10 @@ class LoginTable {
         if(!empty($dbTables))
         {
             $projectDbTables = array_keys($params);
+            //dbugd($projectDbTables);
             foreach ($dbTables as $key => $dbTableCol) 
             {
-                if(!in_array($dbTableCol, $projectDbTables))
+                if(in_array($dbTableCol, $projectDbTables) == false)
                 {
                     $this->down($dbTableCol);
                 }
