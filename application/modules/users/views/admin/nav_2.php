@@ -20,5 +20,11 @@
                 <span class="title">Add User</span>
             </a>
         </li>
+        </li>
+        <li class="nav-item <?php echo activeMenu('users','User List');?>">
+            <a href="<?php echo base_url('users/userList');?>" class="nav-link ">
+                <span class="title">User List</span>
+            </a>
+        </li>
     </ul>
 </li>

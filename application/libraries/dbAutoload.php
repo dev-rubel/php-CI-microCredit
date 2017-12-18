@@ -76,11 +76,8 @@ class DbAutoload {
                 if(!empty($checkAttOrNameChange)){
                     $this->ci->load->view('systemupdatemessages/systemUpdateNeed');  
                 }
-            }
-            
-        }       
-        
-	
+            }            
+        }
     }
 
     public function returnColNameType($attribute) 

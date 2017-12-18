@@ -62,13 +62,15 @@
 
         /* DELETE MEMBER */
         var last_clicked_id = null;
+        var function_name   = null;
         $('.confirmation_but').click(function () {
             last_clicked_id = $(this).data("id");
+            function_name = $(this).data("func");
         });
         $('.confirmation_but').confirmation({
             onConfirm: function () {
                 var options = { 
-                    url:        '<?php echo base_url('users/deleteMember/'); ?>'+last_clicked_id, 
+                    url:        '<?php echo base_url('users/'); ?>'+function_name+'/'+last_clicked_id, 
                     success:    function(data) {
                         appendData('successMsg','Delete Successfully.');
                     } 

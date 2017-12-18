@@ -9,7 +9,9 @@ class UsersModel extends CI_Model {
     }
 
     protected $table = 'members';
+    protected $table2 = 'login';
 
+    // MEMBER TABLE SECTION //
     public function addMember($data) 
     {        
         $this->db->insert($this->table, $data);        
@@ -43,5 +45,20 @@ class UsersModel extends CI_Model {
         $result = $this->db->delete($this->table);
         return $result;        
     }
+
+    // LOGIN TABLE SECTION //
     
+    public function addUser($data) 
+    {   
+        $data['dateTime'] = date('Y-m-d');           
+        $this->db->insert($this->table2, $data);        
+        $result = $this->db->insert_id();
+        return $result;
+    }
+
+    public function userList() 
+    {
+        $result = $this->db->get($this->table2)->result_array();
+        return $result;
+    }
 }

@@ -119,15 +119,12 @@ class Users extends MX_Controller
                         redirect(base_url('users/memberList/'.$memId),'refresh');
                         //$this->jsonMsgReturn(false,'Image insert error.');
                     }                           
-                }
-                                
-
+                }                             
             } else {
                 $this->session->set_flashdata('error', 'Please fillup all mendatory field.');
                 redirect(base_url('users/memberList/'.$memId),'refresh');
                 //$this->jsonMsgReturn(false, 'Please fillup all mendatory field.');
             }
-
         } else {
             $insertId = $this->UsersModel->updateMember($memId, $post);             
             $this->session->set_flashdata('success', 'Data Update Success.');
@@ -154,6 +151,28 @@ class Users extends MX_Controller
 		$this->loadAllContent($data);	
     }
 
+    public function addUser() 
+    {
+        $post = $this->input->post();
+        $validation = $this->validationCheck($post);
+        if($validation){
+            $insertId = $this->UsersModel->addUser($post);
+            $this->jsonMsgReturn(true, 'Data inserted success.');  
+        } else {
+            $this->jsonMsgReturn(false, 'Please fillup all mendatory field.');
+        }
+    }
+
+    public function userList() 
+    {
+        $this->activeMenu('User List');
+        $data2['userList'] = $this->UsersModel->userList();
+        $data = ['User List','userList',$data2]; 
+        $this->loadAllContent($data);	
+    }
+
+
+    /* REUSERABLE FUNCTIONS */
 
     public function validationCheck($postData) 
     {
