@@ -1,5 +1,5 @@
-<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
-<div class="modal-dialog">
+<div class="modal fade bs-modal-lg" id="ajax" role="basic" aria-hidden="true">
+<div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-body">
             <img src="../assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
@@ -103,6 +103,19 @@
                 } else {
                     appendData('successMsg',jData.msg);
                     window.location = '<?php echo base_url('users/memberList');?>';
+                }                
+            }
+        });
+
+        /* ADD USER */
+        $('#usersForm').ajaxForm({             
+            success: function (data){
+                var jData = JSON.parse(data);
+                if(!jData.type) {    
+                    appendData('errorMsg',jData.msg);
+                } else {
+                    appendData('successMsg',jData.msg);
+                    $('#usersForm').resetForm();
                 }                
             }
         });

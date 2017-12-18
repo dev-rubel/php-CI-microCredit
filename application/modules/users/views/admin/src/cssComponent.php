@@ -18,4 +18,14 @@
     .btn:not(.md-skip):not(.bs-select-all):not(.bs-deselect-all).btn-xs {        
         padding: 6px 8px;
     }
+    .d-inline-block{
+        display: inline-block;
+        font-size: 17px;
+    }
+    .memberLavel{
+        background-color: lightyellow;
+    }
+    .form-group.memberLavel .label {
+        font-size: 13px;
+    }
 </style>

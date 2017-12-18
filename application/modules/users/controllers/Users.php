@@ -144,6 +144,17 @@ class Users extends MX_Controller
     }
 
 
+
+    /* USER SECTION */
+
+    public function addUserPage() 
+    {
+        $this->activeMenu('Add User');
+        $data = ['Add User','addUser','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+		$this->loadAllContent($data);	
+    }
+
+
     public function validationCheck($postData) 
     {
         $this->load->helper('form');        
