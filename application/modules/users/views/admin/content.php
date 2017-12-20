@@ -19,26 +19,26 @@
 									<input type="text" name="memGuardian" class="form-control" placeholder="Member ID" required /> 
 								</div>
 								<div class="col-md-4">
-									<input type="text" name="memGuardian" class="form-control" placeholder="Shere ID" required /> 
+									<input type="text" name="memGuardian" class="form-control" placeholder="Share ID" required /> 
 								</div>
 							</div>
 							<hr>
 
 							<div class="form-group">
-								<label class="control-label col-md-2">Member/Shere
+								<label class="control-label col-md-2">Member/Share
                                     <span class="required"> * </span>
                                 </label>
 								<div class="col-md-3">
 									<input type="text" name="memName" class="form-control" placeholder="Fee" required /> </div>
                                 </label>
 								<div class="col-md-2">
-									<input type="text" name="memName" class="form-control" placeholder="Shere Amount" required /> </div>
+									<input type="text" name="memName" class="form-control" placeholder="Share Amount" required /> </div>
                                 </label>
 								<div class="col-md-2">
-									<input type="text" name="memName" class="form-control" placeholder="Total" required /> </div>
+									<input type="text" name="memName" class="form-control" placeholder="Share Total" required /> </div>
                                 </label>
 								<div class="col-md-2">
-									<input type="text" name="memName" class="form-control" placeholder="G.Total" required /> </div>
+									<input type="text" name="memName" class="form-control" placeholder="Grand Total" required /> </div>
                                 </label>
 							</div>
 							<div class="form-group">
@@ -109,19 +109,11 @@
 								<div class="col-md-4">
 									<input name="memPRaddrrs" type="text" class="form-control" placeholder="Present" required />
 								</div>
-							</div>
-							
+							</div>					
 
+							
 							<div class="form-group">
-								<label class="control-label col-md-3">Voucher No.
-                                                    <span class="required"> * </span>
-                                                </label>
-								<div class="col-md-5">
-									<input name="memPass" type="test" class="form-control" placeholder="Voucher No" required />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-md-3">Account Type
+								<label class="control-label col-md-2">Account Type
                                                     <span class="required"> * </span>
                                                 </label>
 								<div class="col-md-5">
@@ -134,7 +126,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-3">Field Officer
+								<label class="control-label col-md-2">Field Officer
                                                     <span class="required"> * </span>
                                                 </label>
 								<div class="col-md-5">
@@ -148,7 +140,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-3">Join Date
+								<label class="control-label col-md-2">Join Date
                                                     <span class="required"> * </span>
                                                 </label>
 								<div class="col-md-5">
@@ -156,7 +148,15 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-3">Email
+								<label class="control-label col-md-2">Voucher No.
+                                                    <span class="required"> * </span>
+                                                </label>
+								<div class="col-md-5">
+									<input name="memPass" type="test" class="form-control" placeholder="Voucher No" required />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-md-2">Email
                                                     <span class="required"> * </span>
                                                 </label>
 								<div class="col-md-5">
@@ -164,7 +164,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-3">Password
+								<label class="control-label col-md-2">Password
                                                     <span class="required"> * </span>
                                                 </label>
 								<div class="col-md-5">
