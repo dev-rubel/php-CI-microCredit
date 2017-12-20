@@ -11,58 +11,113 @@
 							<br>
 							<div class="alert alert-danger display-hide" id="errorMsg"></div>
 							<div class="alert alert-success display-hide" id="successMsg"></div>
+							<div class="form-group">
+								<label class="control-label col-md-2">ID
+                                    <span class="required"> * </span>
+                                </label>
+								<div class="col-md-5">
+									<input type="text" name="memGuardian" class="form-control" placeholder="Member ID" required /> 
+								</div>
+								<div class="col-md-4">
+									<input type="text" name="memGuardian" class="form-control" placeholder="Shere ID" required /> 
+								</div>
+							</div>
+							<hr>
 
 							<div class="form-group">
-								<label class="control-label col-md-3">Name
+								<label class="control-label col-md-2">Member/Shere
                                     <span class="required"> * </span>
                                 </label>
-								<div class="col-md-5">
-									<input type="text" name="memName" class="form-control" required /> </div>
+								<div class="col-md-3">
+									<input type="text" name="memName" class="form-control" placeholder="Fee" required /> </div>
+                                </label>
+								<div class="col-md-2">
+									<input type="text" name="memName" class="form-control" placeholder="Shere Amount" required /> </div>
+                                </label>
+								<div class="col-md-2">
+									<input type="text" name="memName" class="form-control" placeholder="Total" required /> </div>
+                                </label>
+								<div class="col-md-2">
+									<input type="text" name="memName" class="form-control" placeholder="G.Total" required /> </div>
+                                </label>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-3">Email
+								<label class="control-label col-md-2">Name
                                     <span class="required"> * </span>
                                 </label>
-								<div class="col-md-5">
-									<input type="text" name="memEmail" class="form-control" required /> </div>
+								<div class="col-md-9">
+									<input type="text" name="memName" class="form-control" placeholder="Member Name" required /> </div>
+                                </label>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-3">Phone
-                                            <span class="required"> * </span>
-                                        </label>
-								<div class="col-md-5">
-									<input type="text" name="memPhn" class="form-control" required /> </div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-md-3">Date of Birth
+								<label class="control-label col-md-2">Father/Husband
                                     <span class="required"> * </span>
                                 </label>
-								<div class="col-md-5">
-									<input type="text" class="date-picker form-control" name="memDOB" data-date-format="yyyy-mm-dd" required readonly/>
+								<div class="col-md-3">
+									<input type="text" name="memGuardian" class="form-control" placeholder="Name" required /> 
+								</div>
+								<div class="col-md-3">
+									<input type="text" name="memGuardian" class="form-control" placeholder="Profession" required /> 
+								</div>
+								<div class="col-md-3">
+									<input type="text" name="memGuardian" class="form-control" placeholder="Age" required /> 
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-3">Present Address
+								<label class="control-label col-md-2">Address
                                                     <span class="required"> * </span>
                                                 </label>
 								<div class="col-md-5">
-									<input name="memPRaddrrs" type="text" class="form-control" required />
+									<input name="memPEaddrrs" type="text" class="form-control" placeholder="Parmanent" required />
+								</div>
+								<div class="col-md-4">
+									<input name="memPRaddrrs" type="text" class="form-control" placeholder="Present" required />
+								</div>
+							</div>							
+				
+							<div class="form-group">
+								<label class="control-label col-md-2">Nominee
+                                                    <span class="required"> * </span>
+                                                </label>
+								<div class="col-md-6">
+									<input name="memNID" type="text" class="form-control" placeholder="Name" required />
+								</div>
+								<div class="col-md-3">
+									<input type="text" name="memName" class="form-control" placeholder="Age" required /> 
 								</div>
 							</div>
+
 							<div class="form-group">
-								<label class="control-label col-md-3">Permanent Address
+								<label class="control-label col-md-2">Nominee Guardian
                                                     <span class="required"> * </span>
                                                 </label>
-								<div class="col-md-5">
-									<input name="memPEaddrrs" type="text" class="form-control" required />
+								<div class="col-md-6">
+									<input name="memPRaddrrs" type="text" class="form-control" placeholder="Name" required />
+								</div>
+								<div class="col-md-3">
+									<input type="text" name="memName" class="form-control" placeholder="Relation" required /> 
 								</div>
 							</div>
+
 							<div class="form-group">
-								<label class="control-label col-md-3">NID Number
+								<label class="control-label col-md-2">Nominee Address
                                                     <span class="required"> * </span>
                                                 </label>
 								<div class="col-md-5">
-									<input name="memNID" type="number" class="form-control" required />
+									<input name="memPEaddrrs" type="text" class="form-control" placeholder="Parmanent" required />
+								</div>
+								<div class="col-md-4">
+									<input name="memPRaddrrs" type="text" class="form-control" placeholder="Present" required />
+								</div>
+							</div>
+							
+
+							<div class="form-group">
+								<label class="control-label col-md-3">Voucher No.
+                                                    <span class="required"> * </span>
+                                                </label>
+								<div class="col-md-5">
+									<input name="memPass" type="test" class="form-control" placeholder="Voucher No" required />
 								</div>
 							</div>
 							<div class="form-group">
@@ -97,7 +152,15 @@
                                                     <span class="required"> * </span>
                                                 </label>
 								<div class="col-md-5">
-									<input type="text" class="date-picker form-control" name="memJnDate" data-date-format="yyyy-mm-dd" required readonly/>
+									<input type="text" class="date-picker form-control" name="memJnDate" data-date-format="yyyy-mm-dd" placeholder="Date" required readonly/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-md-3">Email
+                                                    <span class="required"> * </span>
+                                                </label>
+								<div class="col-md-5">
+									<input name="memPass" type="test" class="form-control" placeholder="Member Email" required />
 								</div>
 							</div>
 							<div class="form-group">
@@ -105,12 +168,12 @@
                                                     <span class="required"> * </span>
                                                 </label>
 								<div class="col-md-5">
-									<input name="memPass" type="password" class="form-control" required />
+									<input name="memPass" type="password" class="form-control" placeholder="Password" required />
 								</div>
 							</div>
 							<div class="form-group last">
-								<label class="control-label col-md-3">Member Image</label>
-								<div class="col-md-9">
+								<label class="control-label col-md-2">Image</label>
+								<div class="col-md-4">
 									<div class="fileinput fileinput-new" data-provides="fileinput">
 										<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
 											<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" /> </div>
@@ -124,7 +187,24 @@
 										</div>
 									</div>
 									<div class="clearfix margin-top-10">
-										<span class="label label-danger">NOTE!</span> Image Size Must W132 X H170 And only JPG format.</div>
+										<span class="label label-danger">Member Image</span> Image Size Must W132 X H170 And only JPG format.</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="fileinput fileinput-new" data-provides="fileinput">
+										<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+											<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" /> </div>
+										<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
+										<div>
+											<span class="btn default btn-file">
+                                                <span class="fileinput-new"> Select image </span>
+											<span class="fileinput-exists"> Change </span>
+											<input type="file" name="memImg" required /> </span>
+											<a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+										</div>
+									</div>
+									<div class="clearfix margin-top-10">
+										<span class="label label-danger">Scanned Image</span> Image Size Must W132 X H170 And only JPG format.</div>
 								</div>
 							</div>
 

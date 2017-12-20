@@ -32,7 +32,7 @@
                                                     <span class="required"> * </span>
                                                 </label>
 								<div class="col-md-5">
-									<input name="memPass" type="password" class="form-control" required />
+									<input name="password" type="password" class="form-control" required />
 								</div>
 							</div>
                             <div class="form-group">
@@ -55,7 +55,7 @@
 										<?php echo preLoader('memberLoader'); ?>
 									</div>
 									<div class="col-md-7">
-										<button type="submit" id='memberAdd' class="btn green">Submit</button>
+										<button type="submit" id='addUsers' class="btn green">Submit</button>
 										<button type="button" class="btn grey-salsa btn-outline">Cancel</button>
 									</div>
 								</div>
