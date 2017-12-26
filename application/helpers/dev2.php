@@ -82,8 +82,11 @@ function select($val, $val2)
 function sideCollaps($niddle)
 {
     $ci =& get_instance();
-    $options = ['editMember'];
+    $options = ['editMember','users'];
     $uri = $ci->uri->segment(2);
+    if(empty($uri)){
+        $uri = $ci->uri->segment(1);
+    }    
     $check = in_array($uri, $options);
     if($check){
         if($niddle == 'body'){
