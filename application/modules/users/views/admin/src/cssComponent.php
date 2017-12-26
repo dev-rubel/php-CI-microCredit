@@ -28,4 +28,12 @@
     .form-group.memberLavel .label {
         font-size: 13px;
     }
+    .section-title{
+        /* text-align: center; */
+        font-weight: bold;
+    }
+    .hr-divider{
+        width: 50%; 
+        margin: 20px auto;
+    }
 </style>

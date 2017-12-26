@@ -12,7 +12,7 @@
 		<meta content="width=device-width, initial-scale=1" name="viewport" />
 		<meta content="Micro-Credit" name="description" />
 		<meta content="Nihal IT" name="author" />
-		<?php echo $adminHeaderSrc; ?>
+		<?php echo $adminHeaderSrc;?>
 		<!-- END HEAD -->
 		<body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-content-white page-md <?php echo sideCollaps('body');?>">
 			<div class="page-wrapper">
