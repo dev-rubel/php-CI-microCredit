@@ -1,6 +1,6 @@
 <li class="nav-item <?php echo activeMenu('users');?>">
     <a href="javascript:;" class="nav-link nav-toggle">
-        <i class="icon-diamond"></i>
+        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
         <span class="title">Users</span>
         <span class="arrow"></span>
     </a>

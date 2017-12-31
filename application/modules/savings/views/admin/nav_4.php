@@ -1,6 +1,6 @@
 <li class="nav-item <?php echo activeMenu('savings');?>">
     <a href="javascript:;" class="nav-link nav-toggle">
-        <i class="icon-home"></i>
+        <i class="fa fa-address-book"></i>
         <span class="title">Savings</span>
         <span class="arrow"></span>
 

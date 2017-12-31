@@ -110,7 +110,7 @@
                             </div>
                             <div class="col-xs-7 bs-reset">
                                 <div class="login-copyright text-right">
-                                    <p>Copyright &copy; Nihal-IT 2017</p>
+                                    <p>Copyright &copy; Nihal-IT <?php echo date('Y');?></p>
                                 </div>
                             </div>
                         </div>

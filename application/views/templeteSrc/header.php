@@ -5,7 +5,7 @@
     <!-- BEGIN LOGO -->
     <div class="page-logo">
         <a href="index.html">
-            <img src="assets/layouts/layout/img/logo.png" alt="logo" class="logo-default" /> </a>
+            <img src="<?php echo base_url();?>assets/layouts/layout/img/logo.png" alt="logo" class="logo-default" style="width: 110px; height: 40px" /> </a>
         <div class="menu-toggler sidebar-toggler">
             <span></span>
         </div>
@@ -140,7 +140,7 @@
                             <li>
                                 <a href="#">
                                     <span class="photo">
-                                        <img src="assets/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
+                                        <img src="<?php echo base_url();?>assets/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
                                     <span class="subject">
                                         <span class="from"> Lisa Wong </span>
                                         <span class="time">Just Now </span>
