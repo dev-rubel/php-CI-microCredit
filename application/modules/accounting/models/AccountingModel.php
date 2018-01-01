@@ -1,6 +1,6 @@
 <?php
 
-class AccoucheModel extends CI_Model {
+class AccountingModel extends CI_Model {
     
     public function __construct()
     {

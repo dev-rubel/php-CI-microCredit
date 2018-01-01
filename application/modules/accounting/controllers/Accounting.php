@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	Last Update: 27-Aug
 */
 
-class Accouche extends MX_Controller
+class Accounting extends MX_Controller
 {
     protected $uType;
     
@@ -21,8 +21,8 @@ class Accouche extends MX_Controller
 
     public function index() 
 	{
-        $this->activeMenu('Accouche');
-        $data = ['Accouche','content','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+        $this->activeMenu('Accounting');
+        $data = ['Accounting','content','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
 		$this->loadAllContent($data);	
     }      
 

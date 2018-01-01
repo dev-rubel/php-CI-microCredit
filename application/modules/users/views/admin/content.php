@@ -243,17 +243,17 @@
 								<div class="col-md-5">
 									<select class="form-control" name="acType" required>
 										<option value="">Select Branch</option>
-										<option value="General Savings">General Savings</option>
-										<option value="DPS">DPS</option>
-										<option value="FDR">FDR</option>
+										<option value="">Branch 1</option>
+										<option value="">Branch 2</option>
+										<option value="">Branch 3</option>
 									</select>
 								</div>
 								<div class="col-md-4">
 									<select class="form-control" name="acType" required>
-										<option value="">Select Word</option>
-										<option value="General Savings">General Savings</option>
-										<option value="DPS">DPS</option>
-										<option value="FDR">FDR</option>
+										<option value="">Select Ward</option>
+										<option value="">Ward 1</option>
+										<option value="">Ward 2</option>
+										<option value="">Ward 3</option>
 									</select>
 								</div>
 							</div>
