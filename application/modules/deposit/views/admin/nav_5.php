@@ -6,19 +6,24 @@
 
     </a>
     <ul class="sub-menu">
-        <li class="nav-item <?php echo activeMenu('deposit','DPS');?>">
+        <li class="nav-item <?php echo activeMenu('deposit','Savings');?>">
             <a href="<?php echo base_url('deposit');?>" class="nav-link ">
+                <span class="title">Savings</span>
+            </a>
+        </li>
+        <li class="nav-item <?php echo activeMenu('deposit','TDR');?>">
+            <a href="<?php echo base_url('deposit/deposit_tdr');?>" class="nav-link ">
+                <span class="title">TDR</span>
+            </a>
+        </li>
+        <li class="nav-item <?php echo activeMenu('deposit','DPS');?>">
+            <a href="<?php echo base_url('deposit/deposit_dps');?>" class="nav-link ">
                 <span class="title">DPS</span>
             </a>
         </li>
-        <li class="nav-item <?php echo activeMenu('deposit','LPSC');?>">
-            <a href="<?php echo base_url('deposit/deposit_lpsc');?>" class="nav-link ">
-                <span class="title">LPSC</span>
-            </a>
-        </li>
-        <li class="nav-item <?php echo activeMenu('deposit','FDR');?>">
-            <a href="<?php echo base_url('deposit/deposit_fdr');?>" class="nav-link ">
-                <span class="title">FDR</span>
+        <li class="nav-item <?php echo activeMenu('deposit','My Savings');?>">
+            <a href="<?php echo base_url('deposit/deposit_msavings');?>" class="nav-link ">
+                <span class="title">My Savings</span>
             </a>
         </li>
         <li class="nav-item <?php echo activeMenu('deposit','SDF');?>">
@@ -34,6 +39,11 @@
         <li class="nav-item <?php echo activeMenu('deposit','MSF');?>">
             <a href="<?php echo base_url('deposit/deposit_msf');?>" class="nav-link ">
                 <span class="title">MSF</span>
+            </a>
+        </li>
+        <li class="nav-item <?php echo activeMenu('deposit','LPSC');?>">
+            <a href="<?php echo base_url('deposit/deposit_lpsc');?>" class="nav-link ">
+                <span class="title">LPSC</span>
             </a>
         </li>
     </ul>

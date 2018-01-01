@@ -21,22 +21,29 @@ class Deposit extends MX_Controller
 
     public function index() 
 	{
-        $this->activeMenu('DPS');
-        $data = ['Deposit','type/dps','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+        $this->activeMenu('Savings');
+        $data = ['Deposit','type/savings','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
 		$this->loadAllContent($data);
     }      
 
-    public function deposit_lpsc() 
+    public function deposit_tdr() 
     {
-        $this->activeMenu('LPSC');
-        $data = ['Deposit LPSC','type/lpsc','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+        $this->activeMenu('TDR');
+        $data = ['Deposit TDR','type/tdr','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
 		$this->loadAllContent($data);
     }
 
-    public function deposit_fdr() 
+    public function deposit_dps() 
     {
-        $this->activeMenu('FDR');
-        $data = ['Deposit FDR','type/fdr','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+        $this->activeMenu('DPS');
+        $data = ['Deposit DPS','type/dps','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+		$this->loadAllContent($data);
+    }
+
+    public function deposit_msavings() 
+    {
+        $this->activeMenu('My Savings');
+        $data = ['Deposit My Savings','type/msavings','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
 		$this->loadAllContent($data);
     }
 
@@ -58,6 +65,13 @@ class Deposit extends MX_Controller
     {
         $this->activeMenu('MSF');
         $data = ['Deposit MSF','type/msf','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+		$this->loadAllContent($data);
+    }
+
+    public function deposit_lpsc() 
+    {
+        $this->activeMenu('LPSC');
+        $data = ['Deposit LPSC','type/lpsc','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
 		$this->loadAllContent($data);
     }
 

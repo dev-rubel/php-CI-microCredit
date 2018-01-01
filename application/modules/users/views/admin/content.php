@@ -1,5 +1,12 @@
 <div class="row">
 	<div class="col-md-12">
+		<img src="<?php echo base_url();?>assets/pages/img/pad_logo.jpg" alt="" class="img-responsive center-block banner-image">
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-12">
 		<!-- BEGIN VALIDATION STATES-->
 		<div class="portlet light portlet-fit portlet-form bordered">
 			<div class="portlet-title">
@@ -49,8 +56,11 @@
 								<label class="control-label col-md-2">Name
                                     <span class="required"> * </span>
                                 </label>
-								<div class="col-md-9">
+								<div class="col-md-6">
 									<input type="text" name="memName" class="form-control" placeholder="Member Name" required /> </div>
+                                </label>
+								<div class="col-md-3">
+									<input type="text" name="memName" class="form-control" placeholder="Mobile" required /> </div>
                                 </label>
 							</div>
 							<div class="form-group">
@@ -271,6 +281,7 @@
 									<select class="form-control" name="acType" required>
 										<option value="">Select Account Type</option>
 										<option value="General Savings">General Savings</option>
+										<option value="My Savings">My Savings</option>
 										<option value="DPS">DPS</option>
 										<option value="FDR">FDR</option>
 									</select>

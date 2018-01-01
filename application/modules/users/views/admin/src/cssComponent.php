@@ -36,4 +36,8 @@
         width: 50%; 
         margin: 20px auto;
     }
+
+    .banner-image {
+        width: 100%;
+    }
 </style>

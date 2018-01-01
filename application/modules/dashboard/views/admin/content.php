@@ -1,8 +1,13 @@
-
+<div class="row">
+	<div class="col-md-12">
+		<img src="<?php echo base_url();?>assets/pages/img/pad_logo.jpg" alt="" class="img-responsive center-block banner-image">
+	</div>
+</div>
         <!-- BEGIN PAGE TITLE-->
-        <h1 class="page-title"> Admin Dashboard 2
+        <!-- <h1 class="page-title"> Admin Dashboard 2
             <small>statistics, charts, recent events and reports</small>
-        </h1>
+        </h1> -->
+        <br>
         <!-- END PAGE TITLE-->
         <!-- END PAGE HEADER-->
         <div class="row">

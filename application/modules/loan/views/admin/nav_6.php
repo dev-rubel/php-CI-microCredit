@@ -6,34 +6,29 @@
 
     </a>
     <ul class="sub-menu">
-        <li class="nav-item <?php echo activeMenu('loan','Loan1');?>">
+        <li class="nav-item <?php echo activeMenu('loan','Microcredit');?>">
             <a href="<?php echo base_url('loan');?>" class="nav-link ">
-                <span class="title">Loan1</span>
+                <span class="title">Microcredit</span>
             </a>
         </li>
-        <li class="nav-item <?php echo activeMenu('loan','Loan2');?>">
-            <a href="<?php echo base_url('loan/loan2');?>" class="nav-link ">
-                <span class="title">Loan2</span>
+        <li class="nav-item <?php echo activeMenu('loan','Consumer');?>">
+            <a href="<?php echo base_url('loan/loan_consumer');?>" class="nav-link ">
+                <span class="title">Consumer</span>
             </a>
         </li>
-        <li class="nav-item <?php echo activeMenu('loan','Loan3');?>">
-            <a href="<?php echo base_url('loan/loan3');?>" class="nav-link ">
-                <span class="title">Loan3</span>
+        <li class="nav-item <?php echo activeMenu('loan','SOD');?>">
+            <a href="<?php echo base_url('loan/loan_sod');?>" class="nav-link ">
+                <span class="title">SOD</span>
             </a>
         </li>
-        <li class="nav-item <?php echo activeMenu('loan','Loan4');?>">
-            <a href="<?php echo base_url('loan/loan4');?>" class="nav-link ">
-                <span class="title">Loan4</span>
+        <li class="nav-item <?php echo activeMenu('loan','CCH');?>">
+            <a href="<?php echo base_url('loan/loan_cch');?>" class="nav-link ">
+                <span class="title">CCH</span>
             </a>
         </li>
-        <li class="nav-item <?php echo activeMenu('loan','Loan5');?>">
-            <a href="<?php echo base_url('loan/loan5');?>" class="nav-link ">
-                <span class="title">Loan5</span>
-            </a>
-        </li>
-        <li class="nav-item <?php echo activeMenu('loan','Loan6');?>">
-            <a href="<?php echo base_url('loan/loan6');?>" class="nav-link ">
-                <span class="title">Loan6</span>
+        <li class="nav-item <?php echo activeMenu('loan','Short Loan');?>">
+            <a href="<?php echo base_url('loan/loan_short');?>" class="nav-link ">
+                <span class="title">Short Loan</span>
             </a>
         </li>
     </ul>

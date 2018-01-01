@@ -21,45 +21,39 @@ class Loan extends MX_Controller
 
     public function index() 
 	{
-        $this->activeMenu('Loan1');
-        $data = ['Loan1','type/loan1','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+        $this->activeMenu('Microcredit');
+        $data = ['Microcredit','type/microcredit','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
 		$this->loadAllContent($data);
     }      
 
-    public function loan2() 
+    public function loan_consumer() 
     {
-        $this->activeMenu('Loan2');
-        $data = ['Loan2','type/loan2','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+        $this->activeMenu('Consumer');
+        $data = ['Consumer','type/consumer','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
 		$this->loadAllContent($data);
     }
 
-    public function loan3() 
+    public function loan_sod() 
     {
-        $this->activeMenu('Loan3');
-        $data = ['Loan3','type/loan3','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+        $this->activeMenu('SOD');
+        $data = ['SOD','type/sod','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
 		$this->loadAllContent($data);
     }
 
-    public function loan4() 
+    public function loan_cch() 
     {
-        $this->activeMenu('Loan4');
-        $data = ['Loan4','type/loan4','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+        $this->activeMenu('CCH');
+        $data = ['CCH','type/cch','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
 		$this->loadAllContent($data);
     }
 
-    public function loan5() 
+    public function loan_short() 
     {
-        $this->activeMenu('Loan5');
-        $data = ['Loan5','type/loan5','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+        $this->activeMenu('Short Loan');
+        $data = ['Short Loan','type/shortLoan','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
 		$this->loadAllContent($data);
     }
 
-    public function loan6() 
-    {
-        $this->activeMenu('Loan16');
-        $data = ['Loan6','type/loan6','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
-		$this->loadAllContent($data);
-    }
 
 
 
