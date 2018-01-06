@@ -53,7 +53,7 @@
         $('div#'+div).text(msg);
         setTimeout(function() { 
             $('div#'+div).css({ display: "none" }); 
-        }, 5000);        
+        }, 7000);        
     }
 
     $(document).ready(function() { 

@@ -30,33 +30,28 @@ class Users extends MX_Controller
 
     public function addMember() 
     {
-        $post = $this->input->post();
-        $fileInfoult = $this->validationCheck($post);
-        if($fileInfoult){
-            /* LOAD FILE UPLOAD LIBRARY */
-            $data = ['folder'=>'members','size'=>100,'width'=>300,'height'=>300];
-            $config = $this->fileConfig($data);    
-            $this->load->library('upload', $config);
-            /* CHECK FILE ERROR WITH GIVEN CONFIG */    
-            if ( ! $this->upload->do_upload('memImg')) {
-                $error = array('error' => $this->upload->display_errors());
-                $this->jsonMsgReturn(false,'File must below 100KB and Size: W132 X H170.And Only JPG Format.');
+        $post = $this->input->post();        
+        // Validaton
+        $checkValidation = $this->validationCheck($post);
+        if($checkValidation) {
+            $models = ['MembersModel','MembersIntroducerModel','MembersApplicantModel','MembersAccountInfoModel','MembersNomineeModel','MembersShareModel'];
+            $this->load->model($models);
+            // insert data into different table
+            $memberId = $this->MembersModel->add($post);
+            $this->MembersNomineeModel->add($post,$memberId);
+            $this->MembersIntroducerModel->add($post,$memberId);
+            $this->MembersApplicantModel->add($post,$memberId);
+            $this->MembersShareModel->add($post,$memberId);
+            $this->MembersAccountInfoModel->add($post,$memberId);
 
-            } else {                
-                $fileInfo = $this->upload->data();                
-                $insertId = $this->UsersModel->addMember($post);
-                if($fileInfo){
-                    $this->renameFile($fileInfo, 'member'.$insertId); 
-                    $this->jsonMsgReturn(true,'Data inserted success.');                  
-                } else {;
-                    $this->jsonMsgReturn(false,'Image insert error.');
-                }                           
-            }        
+            // this also chcek !empty()
+            $this->imageResize(300,300,'members/profile',$_FILES['memberImage'],$memberId); // width | height | folder | file | name(optional)
+            $this->imageResize(180,180,'members/card',$_FILES['memberCardImage'],$memberId); // width | height | folder | file | name(optional)
 
+            $this->jsonMsgReturn(true,'Data inserted success.'); 
         } else {
             $this->jsonMsgReturn(false, 'Please fillup all mendatory field.');
-        }
-        
+        }        
     }
 
     public function viewMember() 
@@ -174,19 +169,56 @@ class Users extends MX_Controller
 
     /* REUSERABLE FUNCTIONS */
 
+    public function imageResize($w,$h,$folder,$file,$name='') 
+    {
+        if(!empty($file['name'])) {
+            if(!is_dir('./uploads/'.$folder)){ // create folder if not exists
+                mkdir('./uploads/'.$folder);
+            }
+
+            list($fileName, $extention) = explode('.', $file['name']);
+            if(!empty($name)){ // if file name not set, then rename file in default name
+                $fileName = $name;
+            }
+            $fileData = $file['tmp_name'];
+            $config['image_library']  = 'gd2';
+            $config['source_image']   = $fileData;
+            $config['new_image']      = "./uploads/$folder/$fileName.$extention";
+            $config['maintain_ratio'] = TRUE;
+            $config['width']          = $w;
+            $config['height']         = $h;
+            $this->load->library('image_lib');
+            $this->image_lib->initialize($config);
+            $this->image_lib->resize();
+            /* resets all of the values */
+            $this->image_lib->clear();
+        }
+    }
+
     public function validationCheck($postData) 
     {
         $this->load->helper('form');        
         $this->load->library('form_validation');
 
+        $found = false;
         foreach($postData as $k => $each) {
-            $this->form_validation->set_rules($k, 'Field', 'required');
+            if(strpos($k, '/')){ // validation with input name like: fieldName|required       
+                list($fieldName, $validation) = explode('/', $k);
+                $info[] = $validation;
+                $this->form_validation->set_rules($k, $fieldName, $validation); // need to set fullname for set_rules
+                $found = true;
+            }
         }
-        if ($this->form_validation->run() == FALSE) {
-                return false;
+        if($found){ // validation with input name like: fieldName|required 
+            if ($this->form_validation->run() == FALSE) {
+                    return false;
+            } else {
+                    return true;
+            }
         } else {
-                return true;
-        }        
+            return true;
+        }
+                
     }
 
     public function renameFile($fileInfo,$insertId) 

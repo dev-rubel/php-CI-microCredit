@@ -1,2 +1,2 @@
 members
-memId-in,memName-v,memEmail-v,memPass-v,memPhn-v,memDOB-v,memPRaddrrs-v,memPEaddrrs-v,memNID-v,acType-v,memFO-v,memJnDate-v
+memberId-in,memberAcID-v,memberShareID-v,memberAccountingID-v,memberName-v,memberGuardianName-v,memberGuardianPro-v,memberGuardianAge-v,memberPEaddrrs-v,memberPRaddrrs-v,memberNID-v,memberNationality-v,memberDOB-v,createDate-v,modifiedDate-v

@@ -1,4 +1,10 @@
 <?php
+/* CREATE CONSTENT */
+function ci()
+{
+    $ci =& get_instance();
+    return $ci;
+}
 /* START ---- DATA MANUPULATION AND DEBUGING FUNCTIONS */
 
 function dbugd($data)
@@ -42,6 +48,18 @@ function returnUserType($data)
     } else {
         return false;
     }
+}
+
+function resize_file($w,$h,$folder,$file,$name)
+{
+    $config['image_library']  = 'gd2';
+    $config['source_image']   = $file;
+    $config['new_image']      = "./uploads/$folder/$name";
+    $config['maintain_ratio'] = TRUE;
+    $config['width']          = $w;
+    $config['height']         = $h;
+    ci()->load->library('image_lib', $config);
+    ci()->image_lib->resize();
 }
 
 /* ACTIVE MENUE BASE ON CURRENT MODULE NAME AND SET METHOD */    

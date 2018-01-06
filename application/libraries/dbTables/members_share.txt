@@ -1,0 +1,2 @@
+members_share
+members_shareID-in,memberId-v,shareFee-v,shareAmount-v,shareTotal-v,shareGrandTotal-v,createDate-v,modifiedDate-v
