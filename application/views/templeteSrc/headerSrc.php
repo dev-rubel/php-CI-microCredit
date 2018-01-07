@@ -19,6 +19,12 @@
 <link rel="shortcut icon" href="<?php echo base_url();?>assets/favicon.ico" />
 <!-- END THEME LAYOUT STYLES -->
 
+
+
+<div id="overlayDiv" style="width: 99%;height: 100%;background-color: white;position: absolute;top: 0;z-index: 1111; opacity: .7; display: none;"></div>
+<img src="<?php echo base_url();?>assets/loader.gif" id="loading" style="position: absolute; top: 40%; left: 45%; z-index: 1111; display: none;"/>  
+<img src="<?php echo base_url();?>assets/backend/loader.gif" id="loading2" style="position: absolute; top: 20%; left: 40%; z-index: 1111; display: none;"/>  
+
 <!-- START----DYNAMIC GET CSS FILE FOR EACH USER -->
 <?php
     /* $path = APPPATH.'modules/';

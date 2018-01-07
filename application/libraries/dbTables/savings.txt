@@ -1,2 +1,2 @@
 savings
-id-in,userId-v,memberId-v,dpAmount-v,totBlnc-v,depositDate-v
+savingsId-in,memberId-v,savingAmount-v,savingLaserNo-v,savingFildOfficerID-v,savingDate-v,createDate-v,modifiedDate-v

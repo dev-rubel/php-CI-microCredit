@@ -20,6 +20,20 @@ class MembersModel extends CI_Model {
         return $this->insertID;
     }
 
+    public function get($memId) 
+    {
+        $this->db->where('memberId', $memId);
+        $result = $this->db->get($this->table)->result_array();
+        return $result;        
+    }
+
+    public function getTwo($memberAcID) 
+    {
+        $this->db->where('memberAcID', $memberAcID);
+        $result = $this->db->get($this->table)->result_array();
+        return $result;        
+    }
+
     public function filterData($data,$cDate='',$mDate='') // Post Data | Create Date | Modified Date
     {
         foreach($data as $k=>$each) {

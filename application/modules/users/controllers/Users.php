@@ -33,9 +33,8 @@ class Users extends MX_Controller
         $post = $this->input->post();        
         // Validaton
         $checkValidation = $this->validationCheck($post);
-        if($checkValidation) {
-            $models = ['MembersModel','MembersIntroducerModel','MembersApplicantModel','MembersAccountInfoModel','MembersNomineeModel','MembersShareModel'];
-            $this->load->model($models);
+        if($checkValidation) {            
+            $this->loadModel();
             // insert data into different table
             $memberId = $this->MembersModel->add($post);
             $this->MembersNomineeModel->add($post,$memberId);
@@ -54,10 +53,42 @@ class Users extends MX_Controller
         }        
     }
 
+    public function ajaxMemberList() 
+    {
+        $data['table']   = 'members';
+        $data['columns'] = [null,'memberId','memberAcID','memberName','memberPEaddrrs','memberDOB','createDate'];
+        $data['search']  = ['memberId','memberAcID','memberName','memberPEaddrrs','memberDOB','createDate'];
+        $data['order']   = ['memberId'=>'asc'];
+        $this->ajaxList($data);
+    }
+
+    public function actionButton($memId) 
+    {
+        $button = '<div class="btn-group">
+        <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-sliders fa-2x" aria-hidden="true"></i>
+            <i class="fa fa-angle-down fa-2x"></i>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a class="#" href="'.base_url("users/viewMember/").$memId.'" data-target="#ajax" data-toggle="modal"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+            </li>
+            <li>
+                <a href="#" id="collapsSide"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> 
+            </li>
+            <li>
+                <a href="#" class="confirmation_but" data-popout="true" data-singleton="true" data-placement="left" data-func="deleteMember" data-id="'.$memId.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+            </li>
+        </ul> </div>';
+        return $button;
+
+        //'.base_url("users/editMember/").$memId.'
+    }
+
     public function viewMember() 
     {
         $memberId = $this->uri->segment(3);
-        $data['memberInformation'] = $this->UsersModel->getMemberInfo($memberId);
+        $this->loadModel();  
+        $data['memberInformation'] = $this->MembersModel->get($memberId);
         $this->load->view($this->uType.'/'.'viewMember', $data);
     }
     
@@ -166,6 +197,8 @@ class Users extends MX_Controller
         $this->loadAllContent($data);	
     }
 
+    
+
 
     /* REUSERABLE FUNCTIONS */
 
@@ -270,10 +303,47 @@ class Users extends MX_Controller
 
 
 
+    /* DATATABLE AJAX FUNCTION */
+    public function ajaxList($array)
+    {
+        $this->load->model('DatatableModel','datatable');
+        $list = $this->datatable->get_datatables($array);
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $k=>$each) {
+            $no++;
+            $row = array();
+            // $row[] = $no;
+            
+            foreach($array['search'] as $k2=>$each2) {
+                if($each2 == 'createDate' || $each2 == 'modifiedDate') {
+                    $row[] = date('d-m-y',$each[$each2]);                    
+                } else {
+                    $row[] = $each[$each2];                    
+                }                
+            }
+            
+            $row[] = $this->actionButton($each[key($array['order'])]);
+            $data[] = $row;
+        }
+ 
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->datatable->count_all($array),
+            "recordsFiltered" => $this->datatable->count_filtered($array),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
 
 
-
-
+    /* LOAD DATABASE MODEL  */
+    public function loadModel() 
+    {
+        $models = ['MembersModel','MembersIntroducerModel','MembersApplicantModel','MembersAccountInfoModel','MembersNomineeModel','MembersShareModel'];
+        $this->load->model($models);
+    }
 
 
     /* MENDATORY FUNCTOINS MUST NEED EVERY MODULES CONTROLLER */

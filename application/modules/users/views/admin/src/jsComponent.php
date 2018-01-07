@@ -28,7 +28,7 @@
 <script src="<?php echo base_url();?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 <!-- AJAX FORM SUBMIT PLUGIN -->
-<script src="http://malsup.github.com/jquery.form.js"></script> 
+<script src="<?php echo base_url();?>assets/apps/scripts/jquery.form.js"></script> 
 
 <script>
 
@@ -39,12 +39,17 @@
     
     /* SHOW/HIDE DIV AFTER AJAX CALL */
     $(document).ajaxStart( function() {  
+        // $("#overlayDiv").show(); 
         $("img#memberLoader").removeClass("display-hide"); 
+        $("#overlayDiv").show(); 
+        $("#loading").show(); 
     }).ajaxStop ( function(){ 
         setTimeout(function () {
+            $("#overlayDiv").fadeOut(); 
+            $("#loading").fadeOut(); 
             $("img#memberLoader").addClass("display-hide");
             $("html, body").animate({scrollTop: 0});
-        }, 2000);       
+        }, 0);       
     });
 
     /* SHOW SUCCESS/ERROR MESSAGE */
@@ -56,9 +61,32 @@
         }, 7000);        
     }
 
+    function ajaxDataTable(id, url){
+        $('.'+id).DataTable({
+
+            "processing": true, //Feature control the processing indicator.
+            "serverSide": true, //Feature control DataTables' server-side processing mode.
+            "order": [], //Initial no order.
+            // Load data for the table's content from an Ajax source
+            "ajax": {
+                "url": "<?php echo base_url(); ?>"+url,
+                "type": "POST"
+            },
+            //Set column definition initialisation properties.
+            "columnDefs": [
+            { 
+                "targets": [ 0 ], //first column / numbering column
+                "orderable": false, //set not orderable
+            },
+            ],
+
+        });
+    }
+
     $(document).ready(function() { 
 
-        
+         //datatables
+        var userList = ajaxDataTable('member-list', 'users/ajaxMemberList');
 
         /* DELETE MEMBER */
         var last_clicked_id = null;

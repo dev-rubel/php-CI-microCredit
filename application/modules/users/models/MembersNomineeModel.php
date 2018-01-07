@@ -23,6 +23,13 @@ class MembersNomineeModel extends CI_Model {
         return $this->insertID;
     }
 
+    public function get($memberId) 
+    {
+        $this->db->where('memberId', $memberId);
+        $result = $this->db->get($this->table)->result_array();
+        return $result;        
+    }
+
     public function filterData($data,$cDate='',$mDate='') // Post Data | Create Date | Modified Date
     {
         foreach($data as $k=>$each) {

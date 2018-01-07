@@ -1,6 +1,6 @@
 <?php
 
-class MembersAccountInfoModel extends CI_Model {
+class SavingsModel extends CI_Model {
     
     public function __construct()
     {
@@ -8,34 +8,30 @@ class MembersAccountInfoModel extends CI_Model {
             // Your own constructor code
     }
 
-    protected $table = 'members_account_info';
+    protected $table = 'savings';
     protected $info;
     protected $insertID;
 
-    public function add($data,$memberId) 
+    public function add($data) 
     {
         $filterData = $this->filterData($data,true,true); // Post Data | Create Date | Modified Date
-        $filterData['memberId'] = $memberId;
         $this->db->insert($this->table, $filterData);
         $this->insertID = $this->db->insert_id();
         return $this->insertID;
     }
 
-    public function get($memberId) 
+    public function get($memId) 
     {
-        $this->db->where('memberId', $memberId);
+        $this->db->where('memberId', $memId);
         $result = $this->db->get($this->table)->result_array();
         return $result;        
     }
 
     public function filterData($data,$cDate='',$mDate='') // Post Data | Create Date | Modified Date
     {
-        foreach($data as $k=>$each) {
-            $k = explode('*',$k);
-            if($k[0] == $this->table) {
-                $k = explode('/',$k[1]);
-                $this->info[$k[0]] = $each;
-            }
+        foreach($data as $k=>$each) {            
+            $k = explode('/',$k);
+            $this->info[$k[0]] = $each;            
         }
         if($cDate){
             $this->info['createDate'] = strtotime(date('d-m-Y'));
@@ -47,4 +43,5 @@ class MembersAccountInfoModel extends CI_Model {
         return $this->info;
     }
 
+    
 }
