@@ -58,8 +58,8 @@ class Deposit extends MX_Controller
     public function ajaxSavingList() 
     {
         $data['table']   = 'savings';
-        $data['columns'] = [null,'memberId','savingAmount','savingLaserNo','savingFildOfficerID','createDate'];
-        $data['search']  = ['memberId','savingAmount','savingLaserNo','savingFildOfficerID','createDate'];
+        $data['columns'] = [null,'savingsId','memberId','savingAmount','savingLaserNo','savingFildOfficerID','createDate'];
+        $data['search']  = ['savingsId','memberId','savingAmount','savingLaserNo','savingFildOfficerID','createDate'];
         $data['order']   = ['savingsId'=>'desc'];
         $this->ajaxList($data);
     }

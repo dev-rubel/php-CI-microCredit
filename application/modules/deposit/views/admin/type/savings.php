@@ -60,6 +60,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Transaction ID</th>
                         <th>Member ID</th>
                         <th>Amount</th>
                         <th>Laser No.</th>
