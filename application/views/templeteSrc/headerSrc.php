@@ -25,7 +25,24 @@
 <img src="<?php echo base_url();?>assets/loader.gif" id="loading" style="position: absolute; top: 40%; left: 45%; z-index: 1111; display: none;"/>  
 <img src="<?php echo base_url();?>assets/backend/loader.gif" id="loading2" style="position: absolute; top: 20%; left: 40%; z-index: 1111; display: none;"/>  
 
-<!-- START----DYNAMIC GET CSS FILE FOR EACH USER -->
+<style>
+
+@media (min-width: 992px) {
+    .page-content-wrapper .page-content {
+        padding: 25px 0px 0px;
+    }
+}
+.page-container-bg-solid .page-bar, .page-content-white .page-bar {
+    margin: -25px 0px 0;
+}
+
+.portlet.light .portlet-body {
+    margin: 0 !important;
+}
+
+</style>
+
+<!-- START DYNAMIC GET CSS FILE FOR EACH USER -->
 <?php
     /* $path = APPPATH.'modules/';
     $files = directory_map($path);
@@ -38,4 +55,4 @@
         }                    
     //}
 ?>
-<!-- END----DYNAMIC GET CSS FILE FOR EACH USER -->
+<!-- END DYNAMIC GET CSS FILE FOR EACH USER -->
