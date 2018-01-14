@@ -32,6 +32,11 @@
 
 <script>
 
+$(".date-picker").datepicker({
+    format: "dd-mm-yyyy",
+    orientation: "bottom",
+});
+
 /* SHOW/HIDE DIV AFTER AJAX CALL */
 $(document).ajaxStart( function() {  
     $("#overlayDiv").show(); 
@@ -73,7 +78,7 @@ $("input[name=memberId]").keyup(function () {
 
 });
 
-/* ADD MEMBER */
+/* ADD SAVINGS */
 $('#savingForm').ajaxForm({             
     success: function (data){
         var jData = JSON.parse(data);
