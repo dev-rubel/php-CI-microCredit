@@ -103,7 +103,7 @@ $('#savingSearchForm').ajaxForm({
         } else {
             appendData('successMsgSearchSaving',jData.msg);
             $('#searchMemberSavingTableHolder').html(jData.html);
-            $('#savingSearchForm').resetForm();
+            // $('#savingSearchForm').resetForm();
         }                
     }
 });

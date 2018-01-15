@@ -62,7 +62,8 @@ class Deposit extends MX_Controller
         $data['columns'] = [null,'savingsId','memberId','savingAmount','savingLaserNo','savingFildOfficerID','dr_cr','savingDate'];
         $data['search']  = ['savingsId','memberId','dr_cr','savingAmount','savingLaserNo','savingFildOfficerID','savingDate'];
         $data['order']   = ['savingsId'=>'desc'];
-        $this->ajaxList($data);
+        $method = 'get_saving_list';
+        $this->ajaxList($data,$method);
     }
 
     public function actionButton($savingId)
@@ -93,7 +94,9 @@ class Deposit extends MX_Controller
         if($memberId) {
             $checkValidation = $this->validationCheck($post);
             if($checkValidation) { // check validation
+                $page_data['formData'] = $post;
                 $page_data['singleMemberSavings'] = $this->SavingsModel->getMemberSavings($memberId); 
+                $page_data['singleMemberInfo'] = $this->MembersModel->get($memberId); 
                 $htmlData = $this->load->view($this->uType.'/searchMemberSavingTable', $page_data, true);
                 $this->jsonMsgReturn(true, 'Found.',$htmlData);
             } else {
@@ -250,10 +253,10 @@ class Deposit extends MX_Controller
 
 
     /* DATATABLE AJAX FUNCTION */
-    public function ajaxList($array)
+    public function ajaxList($array,$method)
     {        
         $this->load->model('DatatableModel','datatable');
-        $list = $this->datatable->get_datatables($array);
+        $list = $this->datatable->$method($array);
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $k=>$each) {
