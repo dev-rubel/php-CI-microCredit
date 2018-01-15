@@ -33,7 +33,7 @@
 <script>
 
 $(".date-picker").datepicker({
-    format: "dd-mm-yyyy",
+    format: "yyyy-mm-dd",
     orientation: "bottom",
 });
 
@@ -61,7 +61,7 @@ function appendData(div,msg){
 
 
 /* SAVING SECTION ONSCREEN MEMBER IMFORMATION SHOW */
-$("input[name=memberId]").keyup(function () {
+$("#memberId").keyup(function () {
     var value = $(this).val();
     if(value){
         $.ajax({
@@ -80,7 +80,7 @@ $("input[name=memberId]").keyup(function () {
 
 /* ADD SAVINGS */
 $('#savingForm').ajaxForm({             
-    success: function (data){
+    success: function (data) {
         var jData = JSON.parse(data);
         if(!jData.type) {    
             appendData('errorMsgSaving',jData.msg);
@@ -93,10 +93,24 @@ $('#savingForm').ajaxForm({
     }
 });
 
-$(document).ready(function() { 
-//datatables
-var savingList = ajaxDataTable('saving-list', 'deposit/ajaxSavingList');
+/* SAVINGS SEARCH */
+$('#savingSearchForm').ajaxForm({             
+    success: function (data) {
+        var jData = JSON.parse(data);
+        if(!jData.type) {    
+            appendData('errorMsgSearchSaving',jData.msg);
+            $('#searchMemberSavingTableHolder').html('');
+        } else {
+            appendData('successMsgSearchSaving',jData.msg);
+            $('#searchMemberSavingTableHolder').html(jData.html);
+            $('#savingSearchForm').resetForm();
+        }                
+    }
+});
 
+$(document).ready(function() { 
+    //datatables
+    var savingList = ajaxDataTable('saving-list', 'deposit/ajaxSavingList');
 });
 
 function ajaxDataTable(id, url){

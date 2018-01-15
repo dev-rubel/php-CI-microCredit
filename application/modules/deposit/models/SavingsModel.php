@@ -20,12 +20,14 @@ class SavingsModel extends CI_Model {
         return $this->insertID;
     }
 
-    public function get($memId) 
+    public function getMemberSavings($memId) 
     {
         $this->db->where('memberId', $memId);
+        $this->db->order_by("savingDate", "desc");
         $result = $this->db->get($this->table)->result_array();
         return $result;        
     }
+
 
     public function filterData($data,$cDate='',$mDate='') // Post Data | Create Date | Modified Date
     {

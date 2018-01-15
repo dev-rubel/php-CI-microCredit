@@ -2,10 +2,10 @@
 
 class DatatableModel extends CI_Model {
     
-	var $table;
-    var $column_order = [null,'memberAcID','memberShareID','memberAccountingID','memberName','memberGuardianName','memberGuardianPro','memberGuardianAge','memberPEaddrrs','memberPRaddrrs','memberNID','memberNationality','memberDOB','createDate','modifiedDate']; //set column field database for datatable orderable
-    var $column_search = ['memberAcID','memberShareID','memberAccountingID','memberName','memberGuardianName','memberGuardianPro','memberGuardianAge','memberPEaddrrs','memberPRaddrrs','memberNID','memberNationality','memberDOB','createDate','modifiedDate']; //set column field database for datatable searchable 
-    var $order; // default order 
+	// var $table;
+    // var $column_order = [null,'memberAcID','memberShareID','memberAccountingID','memberName','memberGuardianName','memberGuardianPro','memberGuardianAge','memberPEaddrrs','memberPRaddrrs','memberNID','memberNationality','memberDOB','createDate','modifiedDate']; //set column field database for datatable orderable
+    // var $column_search = ['memberAcID','memberShareID','memberAccountingID','memberName','memberGuardianName','memberGuardianPro','memberGuardianAge','memberPEaddrrs','memberPRaddrrs','memberNID','memberNationality','memberDOB','createDate','modifiedDate']; //set column field database for datatable searchable 
+    // var $order; // default order 
     // protected $table;
     // protected $column_order;
     // protected $column_search;
@@ -48,9 +48,7 @@ class DatatableModel extends CI_Model {
         if(isset($_POST['order'])) // here order processing
         {
             $this->db->order_by($array['columns'][$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
-        } 
-        else if(isset($array['order']))
-        {
+        } else if(isset($array['order'])) {
             $order = $array['order'];
             $this->db->order_by(key($order), $order[key($order)]);
         }
@@ -63,16 +61,6 @@ class DatatableModel extends CI_Model {
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result_array();
-    }
-
-    function get_list_of_data($array)
-    {
-        $array['table'] = $array['table'];
-        // $array['columns'] = $array['columns'];
-        // $array['search'] = $array['search'];
-        $array['order'] = $array['id'];
-
-        $this->get_datatables();
     }
  
     function count_filtered($array)

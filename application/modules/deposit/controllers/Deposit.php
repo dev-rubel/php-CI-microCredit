@@ -45,6 +45,7 @@ class Deposit extends MX_Controller
         if($checkValidation) { // check validation
             if(!empty($memberInformation)){ // check valid member id
                 $post['memberId'] = $memberInformation[0]['memberId'];
+                $post['dr_cr'] = 'CR'; // CR for credit(withdrow) | DR for debit(saving)
                 $transactionID = $this->SavingsModel->add($post);
                 $this->jsonMsgReturn(true, "<b>Success!</b> Transaction ID: $transactionID");
             } else {
@@ -55,16 +56,16 @@ class Deposit extends MX_Controller
         }
     }
 
-    public function ajaxSavingList() 
+    public function ajaxSavingList()
     {
         $data['table']   = 'savings';
-        $data['columns'] = [null,'savingsId','memberId','savingAmount','savingLaserNo','savingFildOfficerID','createDate'];
-        $data['search']  = ['savingsId','memberId','savingAmount','savingLaserNo','savingFildOfficerID','createDate'];
+        $data['columns'] = [null,'savingsId','memberId','savingAmount','savingLaserNo','savingFildOfficerID','dr_cr','savingDate'];
+        $data['search']  = ['savingsId','memberId','dr_cr','savingAmount','savingLaserNo','savingFildOfficerID','savingDate'];
         $data['order']   = ['savingsId'=>'desc'];
         $this->ajaxList($data);
     }
 
-    public function actionButton($savingId) 
+    public function actionButton($savingId)
     {
         $button = '<div class="btn-group">
         <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-sliders fa-2x" aria-hidden="true"></i>
@@ -81,6 +82,27 @@ class Deposit extends MX_Controller
         return $button;
 
         //'.base_url("users/editMember/").$savingId.'
+    }
+
+    public function searchMemberSaving()
+    {
+        $this->loadModel();        
+        $post = $this->input->post(); 
+        $memberId = $this->MembersModel->getMemberId($post['memberId']); // member account id (not memberId)       
+
+        if($memberId) {
+            $checkValidation = $this->validationCheck($post);
+            if($checkValidation) { // check validation
+                $page_data['singleMemberSavings'] = $this->SavingsModel->getMemberSavings($memberId); 
+                $htmlData = $this->load->view($this->uType.'/searchMemberSavingTable', $page_data, true);
+                $this->jsonMsgReturn(true, 'Found.',$htmlData);
+            } else {
+                $this->jsonMsgReturn(false, 'Please fillup all mendatory field.');
+            }
+        } else {
+           $this->jsonMsgReturn(false, 'No Member Found.');
+        }
+        
     }
 
     public function deposit_tdr() 
@@ -229,7 +251,7 @@ class Deposit extends MX_Controller
 
     /* DATATABLE AJAX FUNCTION */
     public function ajaxList($array)
-    {
+    {        
         $this->load->model('DatatableModel','datatable');
         $list = $this->datatable->get_datatables($array);
         $data = array();

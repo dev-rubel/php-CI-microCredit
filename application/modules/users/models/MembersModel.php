@@ -34,6 +34,19 @@ class MembersModel extends CI_Model {
         return $result;        
     }
 
+    public function getMemberId($memberAcID) 
+    {
+        $this->db->select('memberId');
+        $this->db->where('memberAcID', $memberAcID);
+        $memberId = $this->db->get($this->table)->result_array();
+
+        if(!empty($memberId)){
+            return $memberId[0]['memberId'];        
+        } else {
+            return false;
+        }        
+    }
+
     public function filterData($data,$cDate='',$mDate='') // Post Data | Create Date | Modified Date
     {
         foreach($data as $k=>$each) {
