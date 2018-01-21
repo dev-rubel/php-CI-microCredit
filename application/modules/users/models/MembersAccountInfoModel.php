@@ -28,6 +28,25 @@ class MembersAccountInfoModel extends CI_Model {
         return $result;        
     }
 
+    public function getMemberByMemberAcID($memberAcID)
+    {
+        $this->db->where('memberAcID',$memberAcID);
+        $memberId = $this->db->get('members')->result_array();
+        //return $memberIds;
+        if(!empty($memberId)){
+            $this->db->where('memberId', $memberId[0]['memberId']);
+            $this->db->where('accTypeID', 'DPS');
+            $result = $this->db->get($this->table)->result_array();
+            if(!empty($result)) {
+                return $result;
+            } else {
+                return $memberId[0]['memberId'];
+            }
+        } else {
+            return false;
+        }        
+    }
+
     public function filterData($data,$cDate='',$mDate='') // Post Data | Create Date | Modified Date
     {
         foreach($data as $k=>$each) {

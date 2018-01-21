@@ -122,6 +122,39 @@ class Deposit extends MX_Controller
 		$this->loadAllContent($data);
     }
 
+    public function createDps() 
+    {
+        $this->loadModel();   
+        $memberAcInfo = $this->MembersAccountInfoModel->getMemberByMemberAcID($_POST['memberAcID']);
+        if(is_array($memberAcInfo)){
+            $this->jsonMsgReturn(true, 'This member already registerd DPS Account.');
+        } elseif($memberAcInfo > 0) { // return memberId
+            $page_data['memberId'] = $memberAcInfo;
+            $html = $this->load->view($this->uType.'/ajaxDpsMemberInfo', $page_data, true);
+            $this->jsonMsgReturn(true, 'Member Found! But DPS not registerd.',$html);
+        } else {
+            $this->jsonMsgReturn(false, 'Member Not Found');
+        }
+        //$page_data['memberAcID'] = $_POST['memberAcID'];
+        //$html = $this->load->view($this->uType.'/ajaxDpsMemberInfo', $page_data, true);
+        // $this->jsonMsgReturn(true, 'Member Found.',$memberAcInfo);
+    }
+
+    public function createDpsAccount() 
+    {
+        $this->loadModel();
+        unset($_POST[0]); // removie unespected 0 index
+        $memberId = $this->uri->segment(3);
+        $data = $this->input->post();
+        $data['members_account_info*accTypeID'] = 'DPS'; // account type
+        $result = $this->MembersAccountInfoModel->add($data, $memberId);
+        if($result) {
+            $this->jsonMsgReturn(true, 'DPS registerd');
+        } else {
+            $this->jsonMsgReturn(false, 'Error!! DPS not registerd.');
+        }
+    }
+
     public function deposit_msavings() 
     {
         $this->activeMenu('My Savings');
@@ -291,7 +324,7 @@ class Deposit extends MX_Controller
     /* LOAD DATABASE MODEL  */
     public function loadModel() 
     {
-        $models = ['SavingsModel','users/MembersModel'];
+        $models = ['SavingsModel','users/MembersModel','users/MembersAccountInfoModel'];
         $this->load->model($models);
     }
 

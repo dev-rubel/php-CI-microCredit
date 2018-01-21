@@ -114,7 +114,7 @@
 
 <?php endforeach; else:?>
 
-<p>No Data Found</p>
+	<p>No Data Found</p>
 
 <?php endif;?>
 

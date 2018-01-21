@@ -68,7 +68,6 @@ $("#memberId").keyup(function () {
             url: '<?php echo base_url('deposit/ajaxGetMemberInfo/'); ?>'+value, 
             success: function (response) {
                 var data = $.parseJSON(response);            
-                console.log(data);
                 $('#memberInformationHolder').html(data.html);            
             }
         });
@@ -107,6 +106,22 @@ $('#savingSearchForm').ajaxForm({
         }                
     }
 });
+
+/* CREATE DPS */
+$('#createDpsForm').ajaxForm({
+    success: function(data) {
+        var jData = JSON.parse(data);
+        if(!jData.type) {
+            appendData('errorMsgDps',jData.msg);
+            $('#memberDpsInformationHolder').html('');
+        } else {
+            appendData('successMsgDps',jData.msg);
+            $('#memberDpsInformationHolder').html(jData.html);
+            $(".date-picker").datepicker(); // reinitialized
+        }
+    }
+});
+
 
 $(document).ready(function() { 
     //datatables
