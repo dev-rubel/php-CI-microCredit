@@ -18,59 +18,65 @@ class DatatableModel extends CI_Model {
     }
  
     private function _get_datatables_query($array)
-    {
-         
-        $this->db->from($array['table']);
- 
-        $i = 0;
-     
+    {         
+        $this->db->from($array['table']); 
+        $i = 0;     
         foreach ($array['search'] as $item) // loop column 
         {
-            if($_POST['search']['value']) // if datatable send POST for search
-            {
+            if($_POST['search']['value']) { // if datatable send POST for search
                  
-                if($i===0) // first loop
-                {
+                if($i===0) { // first loop
                     $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
                     $this->db->like($item, $_POST['search']['value']);
-                }
-                else
-                {
+                } else {
                     $this->db->or_like($item, $_POST['search']['value']);
-                }
- 
+                } 
                 if(count($array['search']) - 1 == $i) //last loop
                     $this->db->group_end(); //close bracket
             }
             $i++;
         }
          
-        if(isset($_POST['order'])) // here order processing
-        {
+        if(isset($_POST['order'])) { // here order processing
             $this->db->order_by($array['columns'][$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
         } 
-        else if(isset($array['order']))
-        {
+        else if(isset($array['order'])) {
             $order = $array['order'];
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
- 
+    
+    /* FOR SAVINGS SECTION */
     function get_saving_list($array)
     {
         $this->_get_datatables_query($array);
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
-        $data = $query->result_array();
-        
+        $data = $query->result_array();        
         // Change memberId to memberAcID
         foreach($data as $k=>$each) {
             $memberAcID = $this->db->get_where('members',['memberId'=>$each['memberId']])->row()->memberAcID;
             $each['memberId'] = $memberAcID;
             $result[] = $each;
         }
+        return $result;
+    }
 
+    /* FOR DPS SECTION */
+    function get_dps_list($array)
+    {
+        $this->_get_datatables_query($array);
+        if($_POST['length'] != -1)
+        $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        $data = $query->result_array();        
+        // Change memberId to memberAcID
+        foreach($data as $k=>$each) {
+            $memberAcID = $this->db->get_where('members',['memberId'=>$each['memberId']])->row()->memberAcID;
+            $each['memberId'] = $memberAcID;
+            $result[] = $each;
+        }
         return $result;
     }
 

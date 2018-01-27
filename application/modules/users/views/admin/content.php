@@ -186,25 +186,16 @@
 							<label class="control-label col-md-2">Introducer 1
 								<span class="required"> * </span>
 							</label>
-							<div class="col-md-5">
-								<input name="members_introducer*introName[]" type="text" class="form-control" placeholder="Name" />
-							</div>
 							<div class="col-md-4">
-								<input name="members_introducer*introMemberID[]" type="text" class="form-control" placeholder="Member ID" />
+								<input name="members_introducer*introMemberID[]" type="text" class="form-control" placeholder="Member ID (Please input valid member id)" />
 							</div>
-						</div>
-						<hr class="hr-divider">
-						<div class="form-group">
 							<label class="control-label col-md-2">Introducer 2
 								<span class="required"> * </span>
 							</label>
-							<div class="col-md-5">
-								<input name="members_introducer*introName[]" type="text" class="form-control" placeholder="Name" />
+							<div class="col-md-3">
+								<input name="members_introducer*introMemberID[]" type="text" class="form-control" placeholder="Member ID (Please input valid member id)" />
 							</div>
-							<div class="col-md-4">
-								<input name="members_introducer*introMemberID[]" type="text" class="form-control" placeholder="Member ID" />
-							</div>
-						</div>
+						</div>						
 						<!-- END INTRODUCER INFORMATION SECTION -->
 
 						<!-- START APPLICANT INFORMATION SECTION -->

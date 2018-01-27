@@ -59,7 +59,7 @@ function appendData(div,msg){
 }
 
 
-
+/* ======= START SAVINGS SECTION AREA ========= */
 /* SAVING SECTION ONSCREEN MEMBER IMFORMATION SHOW */
 $("#memberId").keyup(function () {
     var value = $(this).val();
@@ -107,6 +107,9 @@ $('#savingSearchForm').ajaxForm({
     }
 });
 
+/* ======= END SAVING SECTION AREA ======= */
+
+/* ======= START DPS SECTION AREA ======= */
 /* CREATE DPS */
 $('#createDpsForm').ajaxForm({
     success: function(data) {
@@ -122,10 +125,30 @@ $('#createDpsForm').ajaxForm({
     }
 });
 
+/* MONTHLY DPS */
+$('#monthlyDps').ajaxForm({
+    success: function(data) {
+        var jData = JSON.parse(data);
+        if(!jData.type) {
+            appendData('errorMsgDps',jData.msg);
+        } else {
+            appendData('successMsgDps',jData.msg);
+            $('#memberInformationHolder').html('');
+            ajaxDataTable('dps-list', 'deposit/ajaxDpsList');
+            $('#monthlyDps').resetForm();
+        }
+    }
+});
+
+/* ======= END DPS SECTION AREA ======== */
+
 
 $(document).ready(function() { 
     //datatables
+    // savings
     var savingList = ajaxDataTable('saving-list', 'deposit/ajaxSavingList');
+    //dps
+    var dpsList = ajaxDataTable('dps-list', 'deposit/ajaxDpsList');
 });
 
 function ajaxDataTable(id, url){

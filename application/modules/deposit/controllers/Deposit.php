@@ -19,6 +19,8 @@ class Deposit extends MX_Controller
         $this->uType = returnUserType($_SESSION['userInfo']['userType']);              
     }    
 
+    /* ========== START {SAVING} SECTION AREA =========== */
+    /*  */
     public function index() 
 	{
         $this->activeMenu('Savings');
@@ -39,13 +41,13 @@ class Deposit extends MX_Controller
     public function addSaving() 
     {
         $this->loadModel();        
-        $post = $this->input->post(); 
-        $memberInformation = $this->MembersModel->getTwo($post['memberId']); // member account id (not memberId)
+        $post = $this->input->post();         
         $checkValidation = $this->validationCheck($post);
         if($checkValidation) { // check validation
+            $memberInformation = $this->MembersModel->getTwo($post['memberId']); // member account id (not memberId)
             if(!empty($memberInformation)){ // check valid member id
                 $post['memberId'] = $memberInformation[0]['memberId'];
-                $post['dr_cr'] = 'CR'; // CR for credit(withdrow) | DR for debit(saving)
+                $post['dr_cr'] = 'CR'; // CR for credit(saving) | DR for debit(withdrow)
                 $transactionID = $this->SavingsModel->add($post);
                 $this->jsonMsgReturn(true, "<b>Success!</b> Transaction ID: $transactionID");
             } else {
@@ -63,10 +65,11 @@ class Deposit extends MX_Controller
         $data['search']  = ['savingsId','memberId','dr_cr','savingAmount','savingLaserNo','savingFildOfficerID','savingDate'];
         $data['order']   = ['savingsId'=>'desc'];
         $method = 'get_saving_list';
-        $this->ajaxList($data,$method);
+        $action = 'actionButtonSaving';
+        $this->ajaxList($data,$method,$action);
     }
 
-    public function actionButton($savingId)
+    public function actionButtonSaving($savingId)
     {
         $button = '<div class="btn-group">
         <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-sliders fa-2x" aria-hidden="true"></i>
@@ -81,8 +84,6 @@ class Deposit extends MX_Controller
             </li>
         </ul> </div>';
         return $button;
-
-        //'.base_url("users/editMember/").$savingId.'
     }
 
     public function searchMemberSaving()
@@ -107,7 +108,9 @@ class Deposit extends MX_Controller
         }
         
     }
-
+    /*  */
+    /* ========== END {SAVING} SECTION AREA =========== */
+    
     public function deposit_tdr() 
     {
         $this->activeMenu('TDR');
@@ -115,6 +118,8 @@ class Deposit extends MX_Controller
 		$this->loadAllContent($data);
     }
 
+    /* ========== START {DPS} SECTION AREA =========== */
+    /*  */
     public function deposit_dps() 
     {
         $this->activeMenu('DPS');
@@ -122,7 +127,7 @@ class Deposit extends MX_Controller
 		$this->loadAllContent($data);
     }
 
-    public function createDps() 
+    public function createDpsForm() 
     {
         $this->loadModel();   
         $memberAcInfo = $this->MembersAccountInfoModel->getMemberByMemberAcID($_POST['memberAcID']);
@@ -135,25 +140,69 @@ class Deposit extends MX_Controller
         } else {
             $this->jsonMsgReturn(false, 'Member Not Found');
         }
-        //$page_data['memberAcID'] = $_POST['memberAcID'];
-        //$html = $this->load->view($this->uType.'/ajaxDpsMemberInfo', $page_data, true);
-        // $this->jsonMsgReturn(true, 'Member Found.',$memberAcInfo);
     }
 
     public function createDpsAccount() 
     {
+        pd($_POST);
         $this->loadModel();
         unset($_POST[0]); // removie unespected 0 index
         $memberId = $this->uri->segment(3);
-        $data = $this->input->post();
-        $data['members_account_info*accTypeID'] = 'DPS'; // account type
-        $result = $this->MembersAccountInfoModel->add($data, $memberId);
+        $post = $this->input->post();
+        $post['members_account_info*accTypeID'] = 'DPS'; // account type
+        $this->MembersIntroducerModel->add($post,$memberId);
+        $this->MembersAccountInfoModel->add($post,$memberId);
+
         if($result) {
             $this->jsonMsgReturn(true, 'DPS registerd');
         } else {
             $this->jsonMsgReturn(false, 'Error!! DPS not registerd.');
         }
     }
+
+    public function addMonthlyDps() 
+    {
+        $this->loadModel();        
+        $post = $this->input->post();         
+        $checkValidation = $this->validationCheck($post);
+        if($checkValidation) { // check validation
+            $memberInformation = $this->MembersModel->getTwo($post['memberId']); // member account id (not memberId)
+            if(!empty($memberInformation)) { // check valid member id
+                $post['memberId'] = $memberInformation[0]['memberId'];
+                $post['dr_cr'] = 'CR'; // CR for credit(dps) | DR for debit(withdrow)
+                $transactionID = $this->DpsModel->add($post);
+                $this->jsonMsgReturn(true, "<b>Success!</b> Transaction ID: $transactionID");
+            } else {
+                $this->jsonMsgReturn(false, 'Invaid Member ID.');
+            }
+        } else {
+            $this->jsonMsgReturn(false, 'Please fillup all mendatory field.');
+        }  
+    }
+
+    public function ajaxDpsList()
+    {
+        $data['table']   = 'dps';
+        $data['columns'] = [null,'dpsId','memberId','dpsAmount','dpsLaserNo','dpsFildOfficerID','dr_cr','dpsDate'];
+        $data['search']  = ['dpsId','memberId','dr_cr','dpsAmount','dpsLaserNo','dpsFildOfficerID','dpsDate'];
+        $data['order']   = ['dpsId'=>'desc'];
+        $method = 'get_dps_list';
+        $action = 'actionButtonDps';
+        $this->ajaxList($data,$method,$action);
+    }
+
+    public function actionButtonDps($dpsId)
+    {
+        $button = '
+            <a href="#" class="btn btn-info btn-xs">Edit</a>
+            <a href="#" class="btn btn-danger btn-xs">Delete</a>
+        ';
+        return $button;
+    }
+
+
+    /*  */
+    /* ========== END {DPS} SECTION AREA =========== */
 
     public function deposit_msavings() 
     {
@@ -264,8 +313,7 @@ class Deposit extends MX_Controller
         // here is the renaming functon
         rename($file, $file_path . $final_file_name);
     }
-
-
+    
     public function fileConfig($data) 
     {
         $config['upload_path']          = './uploads/'.$data['folder'];
@@ -283,10 +331,8 @@ class Deposit extends MX_Controller
     }
 
 
-
-
     /* DATATABLE AJAX FUNCTION */
-    public function ajaxList($array,$method)
+    public function ajaxList($array,$method,$action = '')
     {        
         $this->load->model('DatatableModel','datatable');
         $list = $this->datatable->$method($array);
@@ -304,8 +350,10 @@ class Deposit extends MX_Controller
                     $row[] = $each[$each2];                    
                 }                
             }
-            
-            $row[] = $this->actionButton($each[key($array['order'])]);
+            /* If Action Button Assign */
+            if(!empty($action)) {
+                $row[] = $this->$action($each[key($array['order'])]);
+            }            
             $data[] = $row;
         }
  
@@ -324,7 +372,7 @@ class Deposit extends MX_Controller
     /* LOAD DATABASE MODEL  */
     public function loadModel() 
     {
-        $models = ['SavingsModel','users/MembersModel','users/MembersAccountInfoModel'];
+        $models = ['SavingsModel','users/MembersModel','users/MembersAccountInfoModel','DpsModel'];
         $this->load->model($models);
     }
 

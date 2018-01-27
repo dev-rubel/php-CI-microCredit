@@ -28,34 +28,43 @@
 					</div>
 					<div class="portlet-body">
 						<!-- BEGIN FORM-->
-						<form id="dpsForm" action="<?php echo base_url('deposit/addDps');?>" method="post" class="form-horizontal validateForm">
+						<form id="monthlyDps" action="<?php echo base_url('deposit/addMonthlyDps');?>" method="post" class="form-horizontal validateForm">
 							<div class="form-body">
 								<div class="alert alert-danger display-hide" id="errorMsgDps"></div>
 								<div class="alert alert-success display-hide" id="successMsgDps"></div>
 
 								<!-- START MEMBER INFORMATION SECTION -->
-								<div class="form-group">
-									<div class="col-md-2">
-										<input type="text" name="memberId" id="memberId" class="form-control" placeholder="Account NO." />
-									</div>
-									<div class="col-md-2">
-										<input type="text" name="dpsAmount" class="form-control" placeholder="Amount" />
-									</div>
-									<div class="col-md-2">
-										<input type="text" name="dpsLaserNo" class="form-control" placeholder="Laser NO." />
-									</div>
-									<div class="col-md-2">
-										<select name="dpsFildOfficerID/required" id="" class="form-control">
-											<option value="">Select Fild Officer</option>
-											<option value="name">Name</option>
-										</select>
-									</div>
-									<div class="col-md-2">
-										<input class="date-picker form-control" name="dpsDate" placeholder="Date" readonly/>
-									</div>
-									<div class="col-md-2">
-										<input type="submit" class="btn btn-info" value="Submit" />
-									</div>
+									<div class="form-group">
+										<div class="col-md-2">
+											<input type="text" name="memberId" id="memberId" class="form-control" placeholder="Account NO." />
+										</div>
+										<div class="col-md-2">
+											<select name="dpsAmount" class="form-control">
+												<option value="">Select Amount</option>
+												<option value="100">100</option>
+												<option value="200">200</option>
+												<option value="300">300</option>
+												<option value="500">500</option>
+												<option value="1000">1000</option>
+												<option value="1500">1500</option>
+												<option value="2000">2000</option>
+											</select>
+										</div>
+										<div class="col-md-2">
+											<input type="text" name="dpsLaserNo" class="form-control" placeholder="Laser NO." />
+										</div>	
+										<div class="col-md-2">
+											<select name="dpsFildOfficerID/required" id="" class="form-control">
+												<option value="">Select Fild Officer</option>
+												<option value="name">Name</option>
+											</select>
+										</div>
+										<div class="col-md-2">
+											<input class="date-picker form-control" name="dpsDate" placeholder="Date" readonly/>
+										</div>
+										<div class="col-md-2">
+											<input type="submit" class="btn btn-info" value="Submit" />
+										</div>
 								</div>
 							</div>
 						</form>
@@ -155,7 +164,7 @@
 					</div>
 					<div class="portlet-body">
 						<!-- BEGIN FORM-->
-						<form id="createDpsForm" action="<?php echo base_url('deposit/createDps');?>" method="post" class="form-horizontal">
+						<form id="createDpsForm" action="<?php echo base_url('deposit/createDpsForm');?>" method="post" class="form-horizontal">
 							<div class="form-body">
 								<div class="alert alert-danger display-hide" id="errorMsgDps"></div>
 								<div class="alert alert-success display-hide" id="successMsgDps"></div>
