@@ -1,7 +1,7 @@
 <?php
 
 class MembersModel extends CI_Model {
-    
+
     public function __construct()
     {
         parent::__construct();
@@ -12,7 +12,7 @@ class MembersModel extends CI_Model {
     protected $info;
     protected $insertID;
 
-    public function add($data) 
+    public function add($data)
     {
         $filterData = $this->filterData($data,true,true); // Post Data | Create Date | Modified Date
         $this->db->insert($this->table, $filterData);
@@ -20,31 +20,31 @@ class MembersModel extends CI_Model {
         return $this->insertID;
     }
 
-    public function get($memId) 
+    public function get($memId)
     {
         $this->db->where('memberId', $memId);
         $result = $this->db->get($this->table)->result_array();
-        return $result;        
+        return $result;
     }
 
-    public function getTwo($memberAcID) 
+    public function getTwo($memberAcID)
     {
         $this->db->where('memberAcID', $memberAcID);
         $result = $this->db->get($this->table)->result_array();
-        return $result;        
+        return $result;
     }
 
-    public function getMemberId($memberAcID) 
+    public function getMemberId($memberAcID)
     {
         $this->db->select('memberId');
         $this->db->where('memberAcID', $memberAcID);
         $memberId = $this->db->get($this->table)->result_array();
 
         if(!empty($memberId)){
-            return $memberId[0]['memberId'];        
+            return $memberId[0]['memberId'];
         } else {
             return false;
-        }        
+        }
     }
 
     public function filterData($data,$cDate='',$mDate='') // Post Data | Create Date | Modified Date
@@ -62,9 +62,9 @@ class MembersModel extends CI_Model {
         if($mDate){
             $this->info['modifiedDate'] = strtotime(date('d-m-Y'));
         }
-        
+
         return $this->info;
     }
 
-    
+
 }

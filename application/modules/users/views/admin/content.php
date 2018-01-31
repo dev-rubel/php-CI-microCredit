@@ -8,7 +8,7 @@
 	<div class="col-md-12">
 		<!-- BEGIN VALIDATION STATES-->
 		<div class="portlet light portlet-fit portlet-form bordered">
-			
+
 			<div class="portlet-body">
 				<!-- BEGIN FORM-->
 				<form id="membersForm" action="<?php echo base_url('users/addMember');?>" method="post" class="form-horizontal validateForm" enctype="multipart/form-data">
@@ -18,7 +18,7 @@
 						<div class="alert alert-success display-hide" id="successMsg"></div>
 							<h3 class="section-title">Member Information</h3>
 						<hr>
-						<br>							
+						<br>
 						<div class="form-group">
 							<label class="control-label col-md-2">ID
 								<span class="required"> * </span>
@@ -188,14 +188,16 @@
 							</label>
 							<div class="col-md-4">
 								<input name="members_introducer*introMemberID[]" type="text" class="form-control" placeholder="Member ID (Please input valid member id)" />
+								<input name="members_introducer*accType[]" value="General Savings" type="hidden" class="form-control" />
 							</div>
 							<label class="control-label col-md-2">Introducer 2
 								<span class="required"> * </span>
 							</label>
 							<div class="col-md-3">
 								<input name="members_introducer*introMemberID[]" type="text" class="form-control" placeholder="Member ID (Please input valid member id)" />
+								<input name="members_introducer*accType[]" value="General Savings" type="hidden" class="form-control" />
 							</div>
-						</div>						
+						</div>
 						<!-- END INTRODUCER INFORMATION SECTION -->
 
 						<!-- START APPLICANT INFORMATION SECTION -->
@@ -284,7 +286,7 @@
 							<input type="text" class="form-control" name="members_account_info*accProfitRate" placeholder="Profit Rate %">
 							</div>
 						</div>
-						
+
 						<!-- END ACCOUNTING INFORMATION SECTION -->
 
 						<!-- START ACCOUNTING INSTRUCTION INFORMATION SECTION -->
@@ -354,4 +356,3 @@
 		</div>
 				<!-- END VALIDATION STATES-->
 	</div>
-	

@@ -1,31 +1,31 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/* 
+/*
 	Module: Dashboard Module Section
 	Author: Nihal IT
 	Project: Micro-Credit
-	Start: August 2017 
+	Start: August 2017
 	Last Update: 27-Aug
 */
 
 class Savings extends MX_Controller
 {
     protected $uType;
-    
+
     public function __construct()
-    {			
+    {
         $this->checkSession();
         $this->uType = returnUserType($_SESSION['userInfo']['userType']);
 
         $this->load->model('SavingsModel');
-    }    
+    }
 
-    public function index() 
-	{
+    public function index()
+    {
         $this->activeMenu('Savings');
         $data = ['Savings','userList','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
-		$this->loadAllContent($data);	
+	      $this->loadAllContent($data);
     }
 
     public function userList()
@@ -46,13 +46,11 @@ class Savings extends MX_Controller
     {
         $postData = $this->input->post(NULL, FALSE);
         $this->SavingsModel->savingsData($postData);
-        //pde($postData);
     }
 
     public function userOverView($memId)
     {
         $data['userOverView'] = $this->SavingsModel->userOverView($memId);
-        //pde($data);
         $data['dpAmountSum'] = $this->db->select_sum('dpAmount')->get_where('savings', ['memberId' => $memId])->row();
         $this->load->view('admin/userOverView', $data);
     }
@@ -71,7 +69,6 @@ class Savings extends MX_Controller
     public function updateSavingsData()
     {
         $postData = $this->input->post(NULL, FALSE);
-        //pde($postData);
         $id = $postData['id'];
         unset($postData['id']);
         $this->SavingsModel->updateSavingsData($id, $postData);
@@ -122,9 +119,9 @@ class Savings extends MX_Controller
         /* LOAD TEMPLATE MAIN CONTENT */
         $data2['userType']      = $this->uType;
         $data['adminHeaderSrc'] = $this->load->view('templeteSrc/headerSrc',$data2,true);
-		$data['adminHeader']    = $this->load->view('templeteSrc/header',$data2,true);
-		$data['adminSidebar']   = $this->load->view('templeteSrc/sidebar',$data2,true);             
-		$data['adminFooter']    = $this->load->view('templeteSrc/footer',$data2,true);
+    		$data['adminHeader']    = $this->load->view('templeteSrc/header',$data2,true);
+    		$data['adminSidebar']   = $this->load->view('templeteSrc/sidebar',$data2,true);
+    		$data['adminFooter']    = $this->load->view('templeteSrc/footer',$data2,true);
         $data['adminFooterSrc'] = $this->load->view('templeteSrc/footerSrc',$data2,true);
         $this->load->view('templeteSrc/master',$data);
     }
@@ -141,7 +138,7 @@ class Savings extends MX_Controller
 		{
             $this->session->set_flashdata('error', 'Please input email & password.');
 			redirect(base_url());
-        }	
+        }
     }
 
 }

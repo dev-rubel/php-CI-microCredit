@@ -52,7 +52,7 @@
 										</div>
 										<div class="col-md-2">
 											<input type="text" name="dpsLaserNo" class="form-control" placeholder="Laser NO." />
-										</div>	
+										</div>
 										<div class="col-md-2">
 											<select name="dpsFildOfficerID/required" id="" class="form-control">
 												<option value="">Select Fild Officer</option>
@@ -144,13 +144,13 @@
 						</form>
 					</div>
 				</div>
-				
+
 				<!-- END SEARCH MEMBER DPS -->
 
 				<!-- BEGIN ACCORDION PORTLET-->
-				
+
 				<div id="searchMemberdpsTableHolder"></div>
-				
+
 				<!-- END ACCORDION PORTLET-->
 
 				<!-- END DPS LIST TAB SECTION -->
@@ -166,11 +166,11 @@
 						<!-- BEGIN FORM-->
 						<form id="createDpsForm" action="<?php echo base_url('deposit/createDpsForm');?>" method="post" class="form-horizontal">
 							<div class="form-body">
-								<div class="alert alert-danger display-hide" id="errorMsgDps"></div>
-								<div class="alert alert-success display-hide" id="successMsgDps"></div>
+								<div class="alert alert-danger display-hide" id="applyErrorMsgDps"></div>
+								<div class="alert alert-success display-hide" id="applySuccessMsgDps"></div>
 
 								<!-- START MEMBER INFORMATION SECTION -->
-								<div class="form-group">								
+								<div class="form-group">
 									<div class="col-md-10">
 										<input type="text" class="form-control" name="memberAcID" placeholder="Member Account ID" />
 									</div>
@@ -183,9 +183,9 @@
 					</div>
 				</div>
 				<div id="memberDpsInformationHolder"></div>
-				
+
 			</div>
-            
+
 		</div>
 	</div>
 </div>

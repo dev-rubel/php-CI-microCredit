@@ -1,2 +1,2 @@
 members_introducer
-members_introducerID-in,memberId-v,introMemberID-v,createDate-v,modifiedDate-v
+members_introducerID-in,memberId-v,introMemberID-v,accType-v,createDate-v,modifiedDate-v

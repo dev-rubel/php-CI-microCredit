@@ -28,6 +28,18 @@ class MembersAccountInfoModel extends CI_Model {
         return $result;        
     }
 
+    public function checkDpsExist($memberId) 
+    {
+        $this->db->where('memberId',$memberId);
+        $this->db->where('accTypeID','DPS');
+        $result = $this->db->get($this->table)->result_array();
+        if(!empty($result)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getMemberByMemberAcID($memberAcID)
     {
         $this->db->where('memberAcID',$memberAcID);

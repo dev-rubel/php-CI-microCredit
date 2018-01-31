@@ -28,7 +28,7 @@
 <script src="<?php echo base_url();?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 <!-- AJAX FORM SUBMIT PLUGIN -->
-<script src="<?php echo base_url();?>assets/apps/scripts/jquery.form.js"></script> 
+<script src="<?php echo base_url();?>assets/apps/scripts/jquery.form.js"></script>
 
 <script>
 
@@ -36,29 +36,29 @@
     $(".validateForm").validate({
         errorClass: "error-lavel",
     });
-    
+
     /* SHOW/HIDE DIV AFTER AJAX CALL */
-    $(document).ajaxStart( function() {  
-        // $("#overlayDiv").show(); 
-        $("img#memberLoader").removeClass("display-hide"); 
-        $("#overlayDiv").show(); 
-        $("#loading").show(); 
-    }).ajaxStop ( function(){ 
+    $(document).ajaxStart( function() {
+        // $("#overlayDiv").show();
+        $("img#memberLoader").removeClass("display-hide");
+        $("#overlayDiv").show();
+        $("#loading").show();
+    }).ajaxStop ( function(){
         setTimeout(function () {
-            $("#overlayDiv").fadeOut(); 
-            $("#loading").fadeOut(); 
+            $("#overlayDiv").fadeOut();
+            $("#loading").fadeOut();
             $("img#memberLoader").addClass("display-hide");
             $("html, body").animate({scrollTop: 0});
-        }, 0);       
+        }, 0);
     });
 
     /* SHOW SUCCESS/ERROR MESSAGE */
-    function appendData(div,msg){       
+    function appendData(div,msg){
         $('div#'+div).css({ display: "block" });
         $('div#'+div).text(msg);
-        setTimeout(function() { 
-            $('div#'+div).css({ display: "none" }); 
-        }, 7000);        
+        setTimeout(function() {
+            $('div#'+div).css({ display: "none" });
+        }, 7000);
     }
 
     function ajaxDataTable(id, url){
@@ -74,7 +74,7 @@
             },
             //Set column definition initialisation properties.
             "columnDefs": [
-            { 
+            {
                 "targets": [ 0 ], //first column / numbering column
                 "orderable": false, //set not orderable
             },
@@ -83,7 +83,7 @@
         });
     }
 
-    $(document).ready(function() { 
+    $(document).ready(function() {
 
          //datatables
         var userList = ajaxDataTable('member-list', 'users/ajaxMemberList');
@@ -97,13 +97,13 @@
         });
         $('.confirmation_but').confirmation({
             onConfirm: function () {
-                var options = { 
-                    url:        '<?php echo base_url('users/'); ?>'+function_name+'/'+last_clicked_id, 
+                var options = {
+                    url:        '<?php echo base_url('users/'); ?>'+function_name+'/'+last_clicked_id,
                     success:    function(data) {
                         appendData('successMsg','Delete Successfully.');
-                    } 
-                }; 
-            
+                    }
+                };
+
                 $(this).ajaxSubmit(options);
                 $('#rowId-'+last_clicked_id).remove();
             }
@@ -112,44 +112,44 @@
 
 
         /* ADD MEMBER */
-        $('#membersForm').ajaxForm({             
-            success: function (data){
+        $('#membersForm').ajaxForm({
+            success: function (data) {
                 var jData = JSON.parse(data);
-                if(!jData.type) {    
+                if(!jData.type) {
                     appendData('errorMsg',jData.msg);
                 } else {
                     appendData('successMsg',jData.msg);
                     $('#membersForm').resetForm();
-                }                
+                }
             }
         });
 
         /* UPDATE MEMBER */
-        $('#memberEditForm').ajaxForm({             
+        $('#memberEditForm').ajaxForm({
             success: function (data){
                 var jData = JSON.parse(data);
-                if(!jData.type) {    
-                    appendData('errorMsg',jData.msg);                    
+                if(!jData.type) {
+                    appendData('errorMsg',jData.msg);
                 } else {
                     appendData('successMsg',jData.msg);
                     window.location = '<?php echo base_url('users/memberList');?>';
-                }                
+                }
             }
         });
 
         /* ADD USER */
-        $('#usersForm').ajaxForm({             
+        $('#usersForm').ajaxForm({
             success: function (data){
                 var jData = JSON.parse(data);
-                if(!jData.type) {    
+                if(!jData.type) {
                     appendData('errorMsg',jData.msg);
                 } else {
                     appendData('successMsg',jData.msg);
                     $('#usersForm').resetForm();
-                }                
+                }
             }
         });
-    }); 
+    });
 
-    
-</script> 
+
+</script>

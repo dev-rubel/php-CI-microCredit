@@ -9,7 +9,7 @@
 </div>
 </div>
 
-<!-- FOR DATATABLE -- START -->
+<!-- FOR DATATABLE START -->
 <script src="<?php echo base_url();?>assets/global/scripts/datatable.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
@@ -28,7 +28,7 @@
 <script src="<?php echo base_url();?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 <!-- AJAX FORM SUBMIT PLUGIN -->
-<script src="<?php echo base_url();?>assets/apps/scripts/jquery.form.js"></script> 
+<script src="<?php echo base_url();?>assets/apps/scripts/jquery.form.js"></script>
 
 <script>
 
@@ -38,24 +38,24 @@ $(".date-picker").datepicker({
 });
 
 /* SHOW/HIDE DIV AFTER AJAX CALL */
-$(document).ajaxStart( function() {  
-    $("#overlayDiv").show(); 
-    $("#loading").show(); 
-}).ajaxStop ( function(){ 
+$(document).ajaxStart( function() {
+    $("#overlayDiv").show();
+    $("#loading").show();
+}).ajaxStop ( function(){
     setTimeout(function () {
-        $("#overlayDiv").fadeOut(); 
-        $("#loading").fadeOut(); 
+        $("#overlayDiv").fadeOut();
+        $("#loading").fadeOut();
         $("html, body").animate({scrollTop: 0});
-    }, 0);       
+    }, 0);
 });
 
 /* SHOW SUCCESS/ERROR MESSAGE */
-function appendData(div,msg){       
+function appendData(div,msg){
     $('div#'+div).css({ display: "block" });
     $('div#'+div).html(msg);
-    setTimeout(function() { 
-        $('div#'+div).css({ display: "none" }); 
-    }, 7000);        
+    setTimeout(function() {
+        $('div#'+div).css({ display: "none" });
+    }, 7000);
 }
 
 
@@ -65,45 +65,45 @@ $("#memberId").keyup(function () {
     var value = $(this).val();
     if(value){
         $.ajax({
-            url: '<?php echo base_url('deposit/ajaxGetMemberInfo/'); ?>'+value, 
+            url: '<?php echo base_url('deposit/ajaxGetMemberInfo/'); ?>'+value,
             success: function (response) {
-                var data = $.parseJSON(response);            
-                $('#memberInformationHolder').html(data.html);            
+                var data = $.parseJSON(response);
+                $('#memberInformationHolder').html(data.html);
             }
         });
     } else {
         $('#memberInformationHolder').html('');
-    }    
+    }
 
 });
 
 /* ADD SAVINGS */
-$('#savingForm').ajaxForm({             
+$('#savingForm').ajaxForm({
     success: function (data) {
         var jData = JSON.parse(data);
-        if(!jData.type) {    
+        if(!jData.type) {
             appendData('errorMsgSaving',jData.msg);
         } else {
             appendData('successMsgSaving',jData.msg);
             $('#memberInformationHolder').html('');
             ajaxDataTable('saving-list', 'deposit/ajaxSavingList');
             $('#savingForm').resetForm();
-        }                
+        }
     }
 });
 
 /* SAVINGS SEARCH */
-$('#savingSearchForm').ajaxForm({             
+$('#savingSearchForm').ajaxForm({
     success: function (data) {
         var jData = JSON.parse(data);
-        if(!jData.type) {    
+        if(!jData.type) {
             appendData('errorMsgSearchSaving',jData.msg);
             $('#searchMemberSavingTableHolder').html('');
         } else {
             appendData('successMsgSearchSaving',jData.msg);
             $('#searchMemberSavingTableHolder').html(jData.html);
             // $('#savingSearchForm').resetForm();
-        }                
+        }
     }
 });
 
@@ -115,10 +115,10 @@ $('#createDpsForm').ajaxForm({
     success: function(data) {
         var jData = JSON.parse(data);
         if(!jData.type) {
-            appendData('errorMsgDps',jData.msg);
+            appendData('applyErrorMsgDps',jData.msg);
             $('#memberDpsInformationHolder').html('');
         } else {
-            appendData('successMsgDps',jData.msg);
+            appendData('applySuccessMsgDps',jData.msg);
             $('#memberDpsInformationHolder').html(jData.html);
             $(".date-picker").datepicker(); // reinitialized
         }
@@ -140,10 +140,12 @@ $('#monthlyDps').ajaxForm({
     }
 });
 
+
+
 /* ======= END DPS SECTION AREA ======== */
 
 
-$(document).ready(function() { 
+$(document).ready(function() {
     //datatables
     // savings
     var savingList = ajaxDataTable('saving-list', 'deposit/ajaxSavingList');
@@ -164,7 +166,7 @@ function ajaxDataTable(id, url){
        },
        //Set column definition initialisation properties.
        "columnDefs": [
-       { 
+       {
            "targets": [ 0 ], //first column / numbering column
            "orderable": false, //set not orderable
        },

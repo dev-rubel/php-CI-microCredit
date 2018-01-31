@@ -3,7 +3,7 @@
 	<div class="panel-heading">Register DPS Account</div>
 	<div class="panel-body">
 	<!-- id="createDpsAccount"  -->
-	<form action="<?php echo base_url('deposit/createDpsAccount/').$memberId;?>" method="post" class="form-horizontal validateForm">
+	<form id="createDpsAccount" action="<?php echo base_url('deposit/createDpsAccount/').$memberId;?>" method="post" class="form-horizontal validateForm">
 		<div class="form-body">
 		<!-- START LOCATION INFORMATION SECTION -->
 		<hr>
@@ -51,7 +51,7 @@
 			</div>
 			<div class="col-md-3">
 				<input class="date-picker form-control" id="issueDate" name="members_account_info*accIssueDate" data-date-format="dd-mm-yyyy" placeholder="Issue Date" readonly/>
-			</div>			
+			</div>
 			<div class="col-md-2">
 				<input type="text" class="date-picker form-control" id="expireDate" name="members_account_info*accExpireDate" data-date-format="dd-mm-yyyy" placeholder="Expiry Date" readonly>
 			</div>
@@ -66,12 +66,12 @@
 					<option value="1500">1500</option>
 					<option value="2000">2000</option>
 				</select>
-			</div>		
+			</div>
 			<div class="col-md-2">
 				<input type="text" class="form-control" name="members_account_info*accProfitRate" placeholder="Profit Rate %">
 			</div>
 		</div>
-		
+
 		<!-- END ACCOUNTING INFORMATION SECTION -->
 
 		<!-- START ACCOUNTING INSTRUCTION INFORMATION SECTION -->
@@ -116,24 +116,19 @@ $('#issueDate').on('change',function(){
 			$('#issueDate').val('');
 			alert('Please Select Terms First');
 		}
-		
+
 	}
 });
-
-// function calculateExDate(issuDate)
-// {
-// 	alert(issuDate);
-// }
 
 /* CREATE DPS ACCOUNT */
 $('#createDpsAccount').ajaxForm({
     success: function(data) {
         var jData = JSON.parse(data);
         if(!jData.type) {
-            appendData('errorMsgDps',jData.msg);
+            appendData('applyErrorMsgDps',jData.msg);
             $('#memberDpsInformationHolder').html('');
         } else {
-            appendData('successMsgDps',jData.msg);
+            appendData('applySuccessMsgDps',jData.msg);
             $('#memberDpsInformationHolder').html('');
         }
     }
