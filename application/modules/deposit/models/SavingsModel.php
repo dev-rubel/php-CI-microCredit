@@ -20,9 +20,9 @@ class SavingsModel extends CI_Model {
         return $this->insertID;
     }
 
-    public function getMemberSavings($memId) 
+    public function getMemberSavings($memberId) 
     {
-        $this->db->where('memberId', $memId);
+        $this->db->where('memberId', $memberId);
         $this->db->order_by("savingDate", "asc");
         $result = $this->db->get($this->table)->result_array();
         return $result;        

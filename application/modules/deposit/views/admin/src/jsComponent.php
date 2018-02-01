@@ -140,6 +140,21 @@ $('#monthlyDps').ajaxForm({
     }
 });
 
+/* DPS SEARCH */
+$('#dpsSearchForm').ajaxForm({
+    success: function (data) {
+        var jData = JSON.parse(data);
+        if(!jData.type) {
+            appendData('errorMsgSearchDps',jData.msg);
+            $('#searchMemberdpsTableHolder').html('');
+        } else {
+            appendData('successMsgSearchDps',jData.msg);
+            $('#searchMemberdpsTableHolder').html(jData.html);
+            // $('#dpsSearchForm').resetForm();
+        }
+    }
+});
+
 
 
 /* ======= END DPS SECTION AREA ======== */

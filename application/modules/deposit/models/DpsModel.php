@@ -20,6 +20,14 @@ class DpsModel extends CI_Model {
         return $this->insertID;
     }
 
+    public function getMemberDps($memberId) 
+    {
+        $this->db->where('memberId', $memberId);
+        $this->db->order_by("dpsDate", "asc");
+        $result = $this->db->get($this->table)->result_array();
+        return $result;    
+    }
+
     public function filterData($data,$cDate='',$mDate='') // Post Data | Create Date | Modified Date
     {
         foreach($data as $k=>$each) {            

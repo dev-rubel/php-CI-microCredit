@@ -184,6 +184,29 @@ class Deposit extends MX_Controller
         }
     }
 
+    public function searchMemberDps()
+    {
+        $this->loadModel();
+        $post = $this->input->post();
+        $memberId = $this->MembersModel->getMemberId($post['memberId']); // member account id (not memberId)
+
+        if($memberId) {
+            $checkValidation = $this->validationCheck($post);
+            if($checkValidation) { // check validation
+                $page_data['formData'] = $post;
+                $page_data['singleMemberDps'] = $this->DpsModel->getMemberDps($memberId);
+                $page_data['singleMemberInfo'] = $this->MembersModel->get($memberId);
+                $htmlData = $this->load->view($this->uType.'/searchMemberDpsTable', $page_data, true);
+                $this->jsonMsgReturn(true, 'Found.',$htmlData);
+            } else {
+                $this->jsonMsgReturn(false, 'Please fillup all mendatory field.');
+            }
+        } else {
+           $this->jsonMsgReturn(false, 'No Member Found.');
+        }
+
+    }
+
     public function ajaxDpsList()
     {
         $data['table']   = 'dps';
