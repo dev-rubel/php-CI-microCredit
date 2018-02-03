@@ -11,6 +11,7 @@
 	
 	extract($singleMemberInfo[0]);
 	$runningBalance = 0;
+	$productBalance = 0;
 	$yearBalance = 0; // Product and Balance R same;
 ?>
 <div class="portlet box blue">
@@ -75,7 +76,7 @@
 								$yearCr += $each2['dr_cr']=='CR'?$each2['dpsAmount']:'';
 								$yearDr += $each2['dr_cr']=='DR'?$each2['dpsAmount']:'';
 								$yearInterest = ($yearBalance*$formData['dpsInterest'])/$formData['dpsDay'];
-
+								$productBalance += $runningBalance;
 								?>
 
 								<?php if($currentMonth !== $currentMonth2): 
@@ -102,7 +103,7 @@
 									<th><?php echo $yearDr; ?></th>
 									<th><?php echo $yearCr; ?></th>
 									<th><?php echo $yearBalance; ?></th>
-									<th><?php echo $yearBalance; ?></th>
+									<th><?php echo $productBalance; ?></th>
 									<th><?php echo number_format((float)$yearInterest, 2, '.', '');?></th>
 								</tr>
 							</tfoot>

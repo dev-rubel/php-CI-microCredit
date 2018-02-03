@@ -125,7 +125,7 @@
 										<input type="text" name="dpsInterest" class="form-control" placeholder="Interest %" />
 									</div>
 									<div class="col-md-3">
-										<input type="text" name="dpsDay" class="form-control" placeholder="Day (365)" />
+										<input type="text" name="dpsDay" class="form-control" placeholder="Month (12)" />
 									</div>
 									<div class="col-md-2">
 										<input type="submit" class="btn btn-info" value="search" />
