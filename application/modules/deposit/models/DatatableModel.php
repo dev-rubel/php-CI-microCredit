@@ -2,10 +2,10 @@
 
 class DatatableModel extends CI_Model {
     
-	var $table;
-    var $column_order = [null,'memberAcID','memberShareID','memberAccountingID','memberName','memberGuardianName','memberGuardianPro','memberGuardianAge','memberPEaddrrs','memberPRaddrrs','memberNID','memberNationality','memberDOB','createDate','modifiedDate']; //set column field database for datatable orderable
-    var $column_search = ['memberAcID','memberShareID','memberAccountingID','memberName','memberGuardianName','memberGuardianPro','memberGuardianAge','memberPEaddrrs','memberPRaddrrs','memberNID','memberNationality','memberDOB','createDate','modifiedDate']; //set column field database for datatable searchable 
-    var $order; // default order 
+	// var $table;
+    // var $column_order = [null,'memberAcID','memberShareID','memberAccountingID','memberName','memberGuardianName','memberGuardianPro','memberGuardianAge','memberPEaddrrs','memberPRaddrrs','memberNID','memberNationality','memberDOB','createDate','modifiedDate']; //set column field database for datatable orderable
+    // var $column_search = ['memberAcID','memberShareID','memberAccountingID','memberName','memberGuardianName','memberGuardianPro','memberGuardianAge','memberPEaddrrs','memberPRaddrrs','memberNID','memberNationality','memberDOB','createDate','modifiedDate']; //set column field database for datatable searchable 
+    // var $order; // default order 
     // protected $table;
     // protected $column_order;
     // protected $column_search;
@@ -65,6 +65,23 @@ class DatatableModel extends CI_Model {
 
     /* FOR DPS SECTION */
     function get_dps_list($array)
+    {
+        $this->_get_datatables_query($array);
+        if($_POST['length'] != -1)
+        $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        $data = $query->result_array();        
+        // Change memberId to memberAcID
+        foreach($data as $k=>$each) {
+            $memberAcID = $this->db->get_where('members',['memberId'=>$each['memberId']])->row()->memberAcID;
+            $each['memberId'] = $memberAcID;
+            $result[] = $each;
+        }
+        return $result;
+    }
+
+    /* FOR SDF SECTION */
+    function get_sdf_list($array)
     {
         $this->_get_datatables_query($array);
         if($_POST['length'] != -1)

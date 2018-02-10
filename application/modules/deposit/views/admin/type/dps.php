@@ -151,7 +151,7 @@
 
 				<div class="portlet light bordered">
 					<div class="portlet-title">
-						<h3>Add DPS</h3>
+						<h3>Add DPS Account</h3>
 					</div>
 					<div class="portlet-body">
 						<!-- BEGIN FORM-->

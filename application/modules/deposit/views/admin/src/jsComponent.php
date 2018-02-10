@@ -160,12 +160,65 @@ $('#dpsSearchForm').ajaxForm({
 /* ======= END DPS SECTION AREA ======== */
 
 
+/* ======= START SDF SECTION AREA ======= */
+
+/* CREATE SDF */
+$('#createSdfForm').ajaxForm({
+    success: function(data) {
+        var jData = JSON.parse(data);
+        if(!jData.type) {
+            appendData('applyErrorMsgSdf',jData.msg);
+            $('#memberSdfInformationHolder').html('');
+        } else {
+            appendData('applySuccessMsgSdf',jData.msg);
+            $('#memberSdfInformationHolder').html(jData.html);
+            $(".date-picker").datepicker(); // reinitialized
+        }
+    }
+});
+
+/* MONTHLY SDF */
+$('#sdfForm').ajaxForm({
+    success: function(data) {
+        var jData = JSON.parse(data);
+        if(!jData.type) {
+            appendData('errorMsgSdf',jData.msg);
+        } else {
+            appendData('successMsgSdf',jData.msg);
+            $('#memberInformationHolder').html('');
+            ajaxDataTable('sdf-list', 'deposit/ajaxSdfList');
+            $('#sdfForm').resetForm();
+        }
+    }
+});
+
+
+/* SAVINGS SEARCH */
+$('#sdfSearchForm').ajaxForm({
+    success: function (data) {
+        var jData = JSON.parse(data);
+        if(!jData.type) {
+            appendData('errorMsgSearchSdf',jData.msg);
+            $('#searchMembersdfTableHolder').html('');
+        } else {
+            appendData('successMsgSearchSdf',jData.msg);
+            $('#searchMembersdfTableHolder').html(jData.html);
+            // $('#savingSearchForm').resetForm();
+        }
+    }
+});
+
+/* ======= END SDF SECTION AREA ======== */
+
+
 $(document).ready(function() {
-    //datatables
+    // datatables
     // savings
     var savingList = ajaxDataTable('saving-list', 'deposit/ajaxSavingList');
     //dps
     var dpsList = ajaxDataTable('dps-list', 'deposit/ajaxDpsList');
+    //sdf
+    var dpsList = ajaxDataTable('sdf-list', 'deposit/ajaxSdfList');
 });
 
 function ajaxDataTable(id, url){

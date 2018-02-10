@@ -28,10 +28,10 @@ class MembersAccountInfoModel extends CI_Model {
         return $result;        
     }
 
-    public function checkDpsExist($memberId) 
+    public function checkAccountExist($memberId,$acType) 
     {
         $this->db->where('memberId',$memberId);
-        $this->db->where('accTypeID','DPS');
+        $this->db->where('accTypeID',$acType);
         $result = $this->db->get($this->table)->result_array();
         if(!empty($result)) {
             return true;
@@ -40,14 +40,14 @@ class MembersAccountInfoModel extends CI_Model {
         }
     }
 
-    public function getMemberByMemberAcID($memberAcID)
+    public function getMemberByMemberAcID($memberAcID,$accType)
     {
         $this->db->where('memberAcID',$memberAcID);
         $memberId = $this->db->get('members')->result_array();
         //return $memberIds;
         if(!empty($memberId)){
             $this->db->where('memberId', $memberId[0]['memberId']);
-            $this->db->where('accTypeID', 'DPS');
+            $this->db->where('accTypeID', $accType);
             $result = $this->db->get($this->table)->result_array();
             if(!empty($result)) {
                 return $result;

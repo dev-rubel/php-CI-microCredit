@@ -23,14 +23,14 @@ class MembersIntroducerModel extends CI_Model {
         return $this->insertID;
     }
 
-    public function addSingle($data,$memberId) 
+    public function addSingle($data,$memberId,$acType) 
     {
         foreach($data as $k=>$each) {            
             $k = explode('*',$k);
             if($k[0] == $this->table) {
                 $this->info['memberId'] = $memberId;
                 $this->info['introMemberID'] = $each;
-                $this->info['accType'] = 'DPS';
+                $this->info['accType'] = $acType;
                 $this->info['createDate'] = strtotime(date('d-m-Y'));
                 $this->info['modifiedDate'] = strtotime(date('d-m-Y'));
             }

@@ -30,7 +30,7 @@ class Deposit extends MX_Controller
 
     public function ajaxGetMemberInfo()
     {
-        $this->loadModel();
+        $this->loadModel(['users/MembersModel']);
         $page_data['memberAcID'] = $this->uri->segment(3);
         $page_data['memberInformation'] = $this->MembersModel->getTwo($page_data['memberAcID']);
 
@@ -40,7 +40,7 @@ class Deposit extends MX_Controller
 
     public function addSaving()
     {
-        $this->loadModel();
+        $this->loadModel(['SavingsModel','users/MembersModel']);
         $post = $this->input->post();
         $checkValidation = $this->validationCheck($post);
         if($checkValidation) { // check validation
@@ -88,7 +88,7 @@ class Deposit extends MX_Controller
 
     public function searchMemberSaving()
     {
-        $this->loadModel();
+        $this->loadModel(['SavingsModel','users/MembersModel']);
         $post = $this->input->post();
         $memberId = $this->MembersModel->getMemberId($post['memberId']); // member account id (not memberId)
 
@@ -129,8 +129,8 @@ class Deposit extends MX_Controller
 
     public function createDpsForm()
     {
-        $this->loadModel();
-        $memberAcInfo = $this->MembersAccountInfoModel->getMemberByMemberAcID($_POST['memberAcID']);
+        $this->loadModel(['users/MembersAccountInfoModel']);
+        $memberAcInfo = $this->MembersAccountInfoModel->getMemberByMemberAcID($_POST['memberAcID'],'DPS');
         if(is_array($memberAcInfo)){
             $this->jsonMsgReturn(true, 'This member already registerd DPS Account.');
         } elseif($memberAcInfo > 0) { // return memberId
@@ -145,11 +145,11 @@ class Deposit extends MX_Controller
     public function createDpsAccount()
     {
         unset($_POST[0]); // remove unexpected 0 index
-        $this->loadModel();        
+        $this->loadModel(['users/MembersAccountInfoModel','users/MembersIntroducerModel']);        
         $memberId = $this->uri->segment(3);
         $post = $this->input->post();
         $post['members_account_info*accTypeID'] = 'DPS'; // account type
-        $result = $this->MembersIntroducerModel->addSingle($post,$memberId);     
+        $result = $this->MembersIntroducerModel->addSingle($post,$memberId,'DPS');     
                 
         if($result) {
             $this->MembersAccountInfoModel->add($post,$memberId);
@@ -161,13 +161,13 @@ class Deposit extends MX_Controller
 
     public function addMonthlyDps()
     {
-        $this->loadModel();
+        $this->loadModel(['users/MembersModel','users/MembersAccountInfoModel','DpsModel']);
         $post = $this->input->post();
         $checkValidation = $this->validationCheck($post);
         if($checkValidation) { // check validation           
             $memberInformation = $this->MembersModel->getTwo($post['memberId']); // member account id (not memberId)
             if(!empty($memberInformation)) { // check valid member id
-                $exist = $this->MembersAccountInfoModel->checkDpsExist($memberInformation[0]['memberId']); // check dps account exist
+                $exist = $this->MembersAccountInfoModel->checkAccountExist($memberInformation[0]['memberId'],'DPS'); // check dps account exist
                 if($exist) {
                     $post['memberId'] = $memberInformation[0]['memberId'];
                     $post['dr_cr'] = 'CR'; // CR for credit(dps) | DR for debit(withdrow)
@@ -186,7 +186,7 @@ class Deposit extends MX_Controller
 
     public function searchMemberDps()
     {
-        $this->loadModel();
+        $this->loadModel(['users/MembersModel','DpsModel']);
         $post = $this->input->post();
         $memberId = $this->MembersModel->getMemberId($post['memberId']); // member account id (not memberId)
 
@@ -204,7 +204,6 @@ class Deposit extends MX_Controller
         } else {
            $this->jsonMsgReturn(false, 'No Member Found.');
         }
-
     }
 
     public function ajaxDpsList()
@@ -238,12 +237,117 @@ class Deposit extends MX_Controller
 		$this->loadAllContent($data);
     }
 
+    /* ========== START {SDF} SECTION AREA =========== */
+    /*  */
+
     public function deposit_sdf()
     {
         $this->activeMenu('SDF');
         $data = ['Deposit SDF','type/sdf','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
 		$this->loadAllContent($data);
     }
+
+    public function createSdfForm() 
+    {
+        $this->loadModel(['users/MembersAccountInfoModel']);
+        $memberAcInfo = $this->MembersAccountInfoModel->getMemberByMemberAcID($_POST['memberAcID'],'SDF');
+        if(is_array($memberAcInfo)) {
+            $this->jsonMsgReturn(true, 'This member already registerd SDF Account.');
+        } elseif($memberAcInfo > 0) { // return memberId
+            $page_data['memberId'] = $memberAcInfo;
+            $html = $this->load->view($this->uType.'/ajaxSdfMemberInfo', $page_data, true);
+            $this->jsonMsgReturn(true, 'Member Found! But SDF not registerd.',$html);
+        } else {
+            $this->jsonMsgReturn(false, 'Member Not Found');
+        }
+    }
+
+    public function createSdfAccount() 
+    {
+        unset($_POST[0]); // remove unexpected 0 index
+        $this->loadModel(['users/MembersAccountInfoModel','users/MembersIntroducerModel']);        
+        $memberId = $this->uri->segment(3);
+        $post = $this->input->post();
+        $post['members_account_info*accTypeID'] = 'SDF'; // account type
+        $result = $this->MembersIntroducerModel->addSingle($post,$memberId,'SDF');     
+                
+        if($result) {
+            $this->MembersAccountInfoModel->add($post,$memberId);
+            $this->jsonMsgReturn(true, 'SDF registerd');
+        } else {
+            $this->jsonMsgReturn(false, 'Error!! SDF not registerd.');
+        }
+    }
+
+    public function addSdf() 
+    {
+        $this->loadModel(['users/MembersModel','users/MembersAccountInfoModel','SdfModel']);
+        $post = $this->input->post();
+        $checkValidation = $this->validationCheck($post);
+        if($checkValidation) { // check validation           
+            $memberInformation = $this->MembersModel->getTwo($post['memberId']); // member account id (not memberId)
+            if(!empty($memberInformation)) { // check valid member id
+                $exist = $this->MembersAccountInfoModel->checkAccountExist($memberInformation[0]['memberId'],'SDF'); // check sdf account exist
+                if($exist) {
+                    $post['memberId'] = $memberInformation[0]['memberId'];
+                    $post['dr_cr'] = 'CR'; // CR for credit(sdf) | DR for debit(withdrow)
+                    $transactionID = $this->SdfModel->add($post);
+                    $this->jsonMsgReturn(true, "<b>Success!</b> Transaction ID: $transactionID");
+                } else {
+                    $this->jsonMsgReturn(false, 'Doesn\'t found SDF account. Pleaser register first.');
+                }
+            } else {
+                $this->jsonMsgReturn(false, 'Invaid Member ID.');
+            }
+        } else {
+            $this->jsonMsgReturn(false, 'Please fillup all mendatory field.');
+        }
+    }
+
+    public function ajaxSdfList() 
+    {
+        $data['table']   = 'sdf';
+        $data['columns'] = [null,'sdfId','memberId','sdfAmount','sdfLaserNo','sdfFildOfficerID','dr_cr','sdfDate'];
+        $data['search']  = ['sdfId','memberId','dr_cr','sdfAmount','sdfLaserNo','sdfFildOfficerID','sdfDate'];
+        $data['order']   = ['sdfId'=>'desc'];
+        $method = 'get_sdf_list';
+        $action = 'actionButtonSdf';
+        $this->ajaxList($data,$method,$action);
+    }
+
+    public function actionButtonSdf($sdfId)
+    {
+        $button = '
+            <a href="#" class="btn btn-info btn-xs">Edit</a>
+            <a href="#" class="btn btn-danger btn-xs">Delete</a>
+        ';
+        return $button;
+    }
+
+    public function searchMemberSdf() 
+    {
+        $this->loadModel(['SdfModel','users/MembersModel']);
+        $post = $this->input->post();
+        $memberId = $this->MembersModel->getMemberId($post['memberId']); // member account id (not memberId)
+
+        if($memberId) {
+            $checkValidation = $this->validationCheck($post);
+            if($checkValidation) { // check validation
+                $page_data['formData'] = $post;
+                $page_data['singleMemberSdf'] = $this->SdfModel->getMemberSdf($memberId);
+                $page_data['singleMemberInfo'] = $this->MembersModel->get($memberId);
+                $htmlData = $this->load->view($this->uType.'/searchMemberSdfTable', $page_data, true);
+                $this->jsonMsgReturn(true, 'Found.',$htmlData);
+            } else {
+                $this->jsonMsgReturn(false, 'Please fillup all mendatory field.');
+            }
+        } else {
+           $this->jsonMsgReturn(false, 'No Member Found.');
+        }
+    }
+
+    /*  */
+    /* ========== END {SDF} SECTION AREA =========== */
 
     public function deposit_ssf()
     {
@@ -397,9 +501,9 @@ class Deposit extends MX_Controller
 
 
     /* LOAD DATABASE MODEL  */
-    public function loadModel()
+    public function loadModel($models = [])
     {
-        $models = ['SavingsModel','users/MembersModel','users/MembersAccountInfoModel','users/MembersIntroducerModel','DpsModel'];
+        // $models = ['SavingsModel','users/MembersModel','users/MembersAccountInfoModel','users/MembersIntroducerModel','DpsModel','SdfModel'];
         $this->load->model($models);
     }
 
