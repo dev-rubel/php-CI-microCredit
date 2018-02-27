@@ -193,7 +193,7 @@ $('#sdfForm').ajaxForm({
 });
 
 
-/* SAVINGS SEARCH */
+/* SDF SEARCH */
 $('#sdfSearchForm').ajaxForm({
     success: function (data) {
         var jData = JSON.parse(data);
@@ -209,6 +209,26 @@ $('#sdfSearchForm').ajaxForm({
 });
 
 /* ======= END SDF SECTION AREA ======== */
+
+
+/* ======= START TDR SECTION AREA ======= */
+
+/* CREATE TDR */
+$('#createTdrForm').ajaxForm({
+    success: function(data) {
+        var jData = JSON.parse(data);
+        if(!jData.type) {
+            appendData('applyErrorMsgTdr',jData.msg);
+            $('#memberTdrInformationHolder').html('');
+        } else {
+            appendData('applySuccessMsgTdr',jData.msg);
+            $('#memberTdrInformationHolder').html(jData.html);
+            $(".date-picker").datepicker(); // reinitialized
+        }
+    }
+});
+
+/* ======= END TDR SECTION AREA ======== */
 
 
 $(document).ready(function() {

@@ -111,12 +111,33 @@ class Deposit extends MX_Controller
     /*  */
     /* ========== END {SAVING} SECTION AREA =========== */
 
+    /* ========== START {TDR} SECTION AREA =========== */
+    /*  */
+
     public function deposit_tdr()
     {
         $this->activeMenu('TDR');
         $data = ['Deposit TDR','type/tdr','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
 		$this->loadAllContent($data);
     }
+
+    public function createTdrForm() 
+    {
+        $this->loadModel(['users/MembersAccountInfoModel']);
+        $memberAcInfo = $this->MembersAccountInfoModel->getMemberByMemberAcID($_POST['memberAcID'],'TDR');
+        if(is_array($memberAcInfo)){
+            $this->jsonMsgReturn(true, 'This member already registerd DPS Account.');
+        } elseif($memberAcInfo > 0) { // return memberId
+            $page_data['memberId'] = $memberAcInfo;
+            $html = $this->load->view($this->uType.'/ajaxTdrMemberInfo', $page_data, true);
+            $this->jsonMsgReturn(true, 'Member Found! But TDR not registerd.',$html);
+        } else {
+            $this->jsonMsgReturn(false, 'Member Not Found');
+        }
+    }
+
+    /*  */
+    /* ========== END {TDR} SECTION AREA =========== */
 
     /* ========== START {DPS} SECTION AREA =========== */
     /*  */
