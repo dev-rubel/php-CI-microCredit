@@ -64,6 +64,7 @@ class Deposit extends MX_Controller
         $data['columns'] = [null,'savingsId','memberId','savingAmount','savingLaserNo','savingFildOfficerID','dr_cr','savingDate'];
         $data['search']  = ['savingsId','memberId','dr_cr','savingAmount','savingLaserNo','savingFildOfficerID','savingDate'];
         $data['order']   = ['savingsId'=>'desc'];
+        $data['func']    = ['memberId'=>'get_member_name'];
         $method = 'get_saving_list';
         $action = 'actionButtonSaving';
         $this->ajaxList($data,$method,$action);
@@ -233,6 +234,7 @@ class Deposit extends MX_Controller
         $data['columns'] = [null,'dpsId','memberId','dpsAmount','dpsLaserNo','dpsFildOfficerID','dr_cr','dpsDate'];
         $data['search']  = ['dpsId','memberId','dr_cr','dpsAmount','dpsLaserNo','dpsFildOfficerID','dpsDate'];
         $data['order']   = ['dpsId'=>'desc'];
+        $data['func']    = [];
         $method = 'get_dps_list';
         $action = 'actionButtonDps';
         $this->ajaxList($data,$method,$action);
@@ -331,6 +333,7 @@ class Deposit extends MX_Controller
         $data['columns'] = [null,'sdfId','memberId','sdfAmount','sdfLaserNo','sdfFildOfficerID','dr_cr','sdfDate'];
         $data['search']  = ['sdfId','memberId','dr_cr','sdfAmount','sdfLaserNo','sdfFildOfficerID','sdfDate'];
         $data['order']   = ['sdfId'=>'desc'];
+        $data['func']    = ['memberId'=>'get_member_name'];
         $method = 'get_sdf_list';
         $action = 'actionButtonSdf';
         $this->ajaxList($data,$method,$action);
@@ -487,39 +490,56 @@ class Deposit extends MX_Controller
     public function ajaxList($array,$method,$action = '')
     {
         $this->load->model('DatatableModel','datatable');
+        $this->load->model('AjaxDatatableFunctionModel','ajaxModel');
+
         $list = $this->datatable->$method($array);
         $data = array();
         $no = $_POST['start'];
-        foreach ($list as $k=>$each) {
-            $no++;
-            $row = array();
-            $row[] = $no;
 
-            foreach($array['search'] as $k2=>$each2) {
-                if($each2 == 'createDate' || $each2 == 'modifiedDate') {
-                    $row[] = date('d-m-y',$each[$each2]);
-                } else {
-                    $row[] = $each[$each2];
+        /* If data found */
+        if(!empty($list)) {
+            foreach ($list as $k=>$each) {
+                $no++;
+                $row = array();
+                $row[] = $no;
+    
+                foreach($array['search'] as $k2=>$each2) {
+                    if($each2 == 'createDate' || $each2 == 'modifiedDate') {
+                        $row[] = date('d-m-y',$each[$each2]);
+                    } else {
+                        /* if function found */
+                        if (array_key_exists($each2, $array['func'])) {
+                            $row[] = $this->ajaxModel->$array['func'][$each2]($each[$each2]);
+                        } else {
+                            $row[] = $each[$each2];
+                        }                        
+                    }
                 }
+                /* If Action Button Assign */
+                if(!empty($action)) {
+                    $row[] = $this->$action($each[key($array['order'])]);
+                }
+                $data[] = $row;
             }
-            /* If Action Button Assign */
-            if(!empty($action)) {
-                $row[] = $this->$action($each[key($array['order'])]);
-            }
-            $data[] = $row;
+            $output = array(
+                "draw" => $_POST['draw'],
+                "recordsTotal" => $this->datatable->count_all($array),
+                "recordsFiltered" => $this->datatable->count_filtered($array),
+                "data" => $data,
+            );
+            //output to json format
+            echo json_encode($output);
+        } else {        // If no data found     
+            $output = array(
+                "draw" => $_POST['draw'],
+                "recordsTotal" => $this->datatable->count_all($array),
+                "recordsFiltered" => $this->datatable->count_filtered($array),
+                "data" => [],
+            );
+            //output to json format
+            echo json_encode($output);
         }
-
-        $output = array(
-            "draw" => $_POST['draw'],
-            "recordsTotal" => $this->datatable->count_all($array),
-            "recordsFiltered" => $this->datatable->count_filtered($array),
-            "data" => $data,
-        );
-        //output to json format
-        echo json_encode($output);
     }
-
-
 
     /* LOAD DATABASE MODEL  */
     public function loadModel($models = [])
@@ -528,12 +548,7 @@ class Deposit extends MX_Controller
         $this->load->model($models);
     }
 
-
-
-
-
     /* MENDATORY FUNCTOINS MUST NEED EVERY MODULES CONTROLLER */
-
     public function loadAllContent($dynamicContent)
     {
         /* LOAD DYNAMIC CONTENT */
@@ -542,9 +557,9 @@ class Deposit extends MX_Controller
         /* LOAD TEMPLATE MAIN CONTENT */
         $data2['userType']      = $this->uType;
         $data['adminHeaderSrc'] = $this->load->view('templeteSrc/headerSrc',$data2,true);
-    		$data['adminHeader']    = $this->load->view('templeteSrc/header',$data2,true);
-    		$data['adminSidebar']   = $this->load->view('templeteSrc/sidebar',$data2,true);
-    		$data['adminFooter']    = $this->load->view('templeteSrc/footer',$data2,true);
+        $data['adminHeader']    = $this->load->view('templeteSrc/header',$data2,true);
+        $data['adminSidebar']   = $this->load->view('templeteSrc/sidebar',$data2,true);
+        $data['adminFooter']    = $this->load->view('templeteSrc/footer',$data2,true);
         $data['adminFooterSrc'] = $this->load->view('templeteSrc/footerSrc',$data2,true);
         $this->load->view('templeteSrc/master',$data);
     }
