@@ -126,7 +126,7 @@ class Deposit extends MX_Controller
         $this->loadModel(['users/MembersAccountInfoModel']);
         $memberAcInfo = $this->MembersAccountInfoModel->getMemberByMemberAcID($_POST['memberAcID'],'TDR');
         if(is_array($memberAcInfo)){
-            $this->jsonMsgReturn(true, 'This member already registerd DPS Account.');
+            $this->jsonMsgReturn(true, 'This member already registerd TDR Account.');
         } elseif($memberAcInfo > 0) { // return memberId
             $page_data['memberId'] = $memberAcInfo;
             $html = $this->load->view($this->uType.'/ajaxTdrMemberInfo', $page_data, true);

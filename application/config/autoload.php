@@ -57,7 +57,9 @@ $autoload['packages'] = array();
 | in the controller:
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
-*/
+
+    dbautoload
+*/ 
 $autoload['libraries'] = array('database','session','dbautoload');
 
 /*
@@ -89,7 +91,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'function');
+$autoload['helper'] = array('url', 'function', 'directory');
 
 /*
 | -------------------------------------------------------------------
