@@ -45,6 +45,16 @@ class DatatableModel extends CI_Model {
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
+
+    /* FOR MEMBER SECTION */
+    function get_datatables($array)
+    {
+        $this->_get_datatables_query($array);
+        if($_POST['length'] != -1)
+        $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
     
     /* FOR SAVINGS SECTION */
     function get_saving_list($array)
@@ -87,14 +97,20 @@ class DatatableModel extends CI_Model {
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
-        $data = $query->result_array();        
+                
         // Change memberId to memberAcID
-        foreach($data as $k=>$each) {
-            $memberAcID = $this->db->get_where('members',['memberId'=>$each['memberId']])->row()->memberAcID;
-            $each['memberId'] = $memberAcID;
-            $result[] = $each;
+        if($query->num_rows() > 0) {
+            $data = $query->result_array(); 
+            foreach($data as $k=>$each) {
+                $memberAcID = $this->db->get_where('members',['memberId'=>$each['memberId']])->row()->memberAcID;
+                $each['memberId'] = $memberAcID;
+                $result[] = $each;
+            }
+            return $result;
+        } else {
+            return [];
         }
-        return $result;
+        
     }
 
     function get_list_of_data($array)

@@ -238,7 +238,7 @@ $(document).ready(function() {
     //dps
     var dpsList = ajaxDataTable('dps-list', 'deposit/ajaxDpsList');
     //sdf
-    var dpsList = ajaxDataTable('sdf-list', 'deposit/ajaxSdfList');
+    var sdfList = ajaxDataTable('sdf-list', 'deposit/ajaxSdfList');
 });
 
 function ajaxDataTable(id, url){

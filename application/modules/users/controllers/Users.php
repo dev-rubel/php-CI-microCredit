@@ -64,7 +64,10 @@ class Users extends MX_Controller
         $data['columns'] = [null,'memberId','memberAcID','memberName','memberPEaddrrs','memberDOB','createDate'];
         $data['search']  = ['memberId','memberAcID','memberName','memberPEaddrrs','memberDOB','createDate'];
         $data['order']   = ['memberId'=>'asc'];
-        $this->ajaxList($data);
+        $data['func']    = [];
+        $method = 'get_datatables';
+        $action = 'actionButton';
+        $this->ajaxList($data,$method,$action);
     }
 
     public function actionButton($memId)
@@ -178,7 +181,7 @@ class Users extends MX_Controller
     {
         $this->activeMenu('Add User');
         $data = ['Add User','addUser','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
-	      $this->loadAllContent($data);
+        $this->loadAllContent($data);
     }
 
     public function addUser()
@@ -287,58 +290,59 @@ class Users extends MX_Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /* DATATABLE AJAX FUNCTION */
-    public function ajaxList($array)
+    public function ajaxList($array,$method,$action = '')
     {
         $this->load->model('DatatableModel','datatable');
-        $list = $this->datatable->get_datatables($array);
+        $this->load->model('AjaxDatatableFunctionModel','ajaxModel');
+
+        $list = $this->datatable->$method($array);
         $data = array();
         $no = $_POST['start'];
-        foreach ($list as $k=>$each) {
-            $no++;
-            $row = array();
-            // $row[] = $no;
 
-            foreach($array['search'] as $k2=>$each2) {
-                if($each2 == 'createDate' || $each2 == 'modifiedDate') {
-                    $row[] = date('d-m-y',$each[$each2]);
-                } else {
-                    $row[] = $each[$each2];
+        // If data found
+        if(!empty($list)) {
+            foreach ($list as $k=>$each) {
+                $no++;
+                $row = array();
+                $row[] = $no;
+    
+                foreach($array['search'] as $k2=>$each2) {
+                    if($each2 == 'createDate' || $each2 == 'modifiedDate') {
+                        $row[] = date('d-m-y',$each[$each2]);
+                    } else {
+                        // if function found
+                        if (array_key_exists($each2, $array['func'])) {
+                            $row[] = $this->ajaxModel->$array['func'][$each2]($each[$each2]);
+                        } else {
+                            $row[] = $each[$each2];
+                        }                        
+                    }
                 }
+                /* If Action Button Assign */
+                if(!empty($action)) {
+                    $row[] = $this->$action($each[key($array['order'])]);
+                }
+                $data[] = $row;
             }
-
-            $row[] = $this->actionButton($each[key($array['order'])]);
-            $data[] = $row;
+            $output = array(
+                "draw" => $_POST['draw'],
+                "recordsTotal" => $this->datatable->count_all($array),
+                "recordsFiltered" => $this->datatable->count_filtered($array),
+                "data" => $data,
+            );
+            //output to json format
+            echo json_encode($output);
+        } else {        // If no data found     
+            $output = array(
+                "draw" => $_POST['draw'],
+                "recordsTotal" => $this->datatable->count_all($array),
+                "recordsFiltered" => $this->datatable->count_filtered($array),
+                "data" => [],
+            );
+            //output to json format
+            echo json_encode($output);
         }
-
-        $output = array(
-            "draw" => $_POST['draw'],
-            "recordsTotal" => $this->datatable->count_all($array),
-            "recordsFiltered" => $this->datatable->count_filtered($array),
-            "data" => $data,
-        );
-        //output to json format
-        echo json_encode($output);
     }
 
 
@@ -360,9 +364,9 @@ class Users extends MX_Controller
         /* LOAD TEMPLATE MAIN CONTENT */
         $data2['userType']      = $this->uType;
         $data['adminHeaderSrc'] = $this->load->view('templeteSrc/headerSrc',$data2,true);
-    		$data['adminHeader']    = $this->load->view('templeteSrc/header',$data2,true);
-    		$data['adminSidebar']   = $this->load->view('templeteSrc/sidebar',$data2,true);
-    		$data['adminFooter']    = $this->load->view('templeteSrc/footer',$data2,true);
+        $data['adminHeader']    = $this->load->view('templeteSrc/header',$data2,true);
+        $data['adminSidebar']   = $this->load->view('templeteSrc/sidebar',$data2,true);
+        $data['adminFooter']    = $this->load->view('templeteSrc/footer',$data2,true);
         $data['adminFooterSrc'] = $this->load->view('templeteSrc/footerSrc',$data2,true);
         $this->load->view('templeteSrc/master',$data);
     }
