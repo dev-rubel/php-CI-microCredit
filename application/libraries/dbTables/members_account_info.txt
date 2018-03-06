@@ -1,2 +1,2 @@
 members_account_info
-members_account_infoID-in,memberId-v,accOpenBranchID-v,accOpenWardID-v,accTypeID-v,accIssueDate-v,accAmount-v,accExpireDate-v,accProfitRate-v,accInformation-t,createDate-v,modifiedDate-v
+members_account_infoID-in,memberId-v,accOpenBranchID-v,accOpenWardID-v,accTypeID-v,accIssueDate-v,accAmount-v,accExpireDate-v,accProfitRate-v,accInformation-t,accStatus-i,createDate-v,modifiedDate-v

@@ -137,6 +137,23 @@ class Deposit extends MX_Controller
         }
     }
 
+    public function createTdrAccount()
+    {
+        unset($_POST[0]); // remove unexpected 0 index
+        $this->loadModel(['users/MembersAccountInfoModel','users/MembersIntroducerModel']);        
+        $memberId = $this->uri->segment(3);
+        $post = $this->input->post();
+        $post['members_account_info*accTypeID'] = 'TDR'; // account type
+        $result = $this->MembersIntroducerModel->addSingle($post,$memberId,'TDR');     
+                
+        if($result) {
+            $this->MembersAccountInfoModel->add($post,$memberId);
+            $this->jsonMsgReturn(true, 'TDR registerd');
+        } else {
+            $this->jsonMsgReturn(false, 'Error!! TDR not registerd.');
+        }
+    }
+
     /*  */
     /* ========== END {TDR} SECTION AREA =========== */
 

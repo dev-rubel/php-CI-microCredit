@@ -159,6 +159,53 @@ $('#dpsSearchForm').ajaxForm({
 
 /* ======= END DPS SECTION AREA ======== */
 
+/* ======= START TDR SECTION AREA ======= */
+/* CREATE TDR */
+$('#createTdrForm').ajaxForm({
+    success: function(data) {
+        var jData = JSON.parse(data);
+        if(!jData.type) {
+            appendData('applyErrorMsgTdr',jData.msg);
+            $('#memberTdrInformationHolder').html('');
+        } else {
+            appendData('applySuccessMsgTdr',jData.msg);
+            $('#memberTdrInformationHolder').html(jData.html);
+            $(".date-picker").datepicker(); // reinitialized
+        }
+    }
+});
+
+/* MONTHLY TDR */
+$('#monthlyTdr').ajaxForm({
+    success: function(data) {
+        var jData = JSON.parse(data);
+        if(!jData.type) {
+            appendData('errorMsgTdr',jData.msg);
+        } else {
+            appendData('successMsgTdr',jData.msg);
+            $('#memberInformationHolder').html('');
+            ajaxDataTable('tdr-list', 'deposit/ajaxTdrList');
+            $('#monthlyTdr').resetForm();
+        }
+    }
+});
+
+/* TDR SEARCH */
+$('#tdrSearchForm').ajaxForm({
+    success: function (data) {
+        var jData = JSON.parse(data);
+        if(!jData.type) {
+            appendData('errorMsgSearchTdr',jData.msg);
+            $('#searchMembertdrTableHolder').html('');
+        } else {
+            appendData('successMsgSearchTdr',jData.msg);
+            $('#searchMembertdrTableHolder').html(jData.html);
+            // $('#tdrSearchForm').resetForm();
+        }
+    }
+});
+
+/* ======= END TDR SECTION AREA ======== */
 
 /* ======= START SDF SECTION AREA ======= */
 
