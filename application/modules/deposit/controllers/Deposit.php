@@ -61,8 +61,8 @@ class Deposit extends MX_Controller
     public function ajaxSavingList()
     {
         $data['table']   = 'savings';
-        $data['columns'] = [null,'savingsId','memberId','savingAmount','savingLaserNo','savingFildOfficerID','dr_cr','savingDate'];
-        $data['search']  = ['savingsId','memberId','dr_cr','savingAmount','savingLaserNo','savingFildOfficerID','savingDate'];
+        $data['columns'] = [null,'savingsId','memberId','savingAmount','savingLaserNo','savingFildOfficerID','dr_cr','source','savingDate'];
+        $data['search']  = ['savingsId','memberId','dr_cr','savingAmount','savingLaserNo','source','savingFildOfficerID','savingDate'];
         $data['order']   = ['savingsId'=>'desc'];
         $data['func']    = ['memberId'=>'get_member_name'];
         $method = 'get_saving_list';
@@ -127,7 +127,10 @@ class Deposit extends MX_Controller
         $this->loadModel(['users/MembersAccountInfoModel']);
         $memberAcInfo = $this->MembersAccountInfoModel->getMemberByMemberAcID($_POST['memberAcID'],'TDR');
         if(is_array($memberAcInfo)){
-            $this->jsonMsgReturn(true, 'This member already registerd TDR Account.');
+            $page_data['memberAcInfo'] = $memberAcInfo;
+            $page_data['memberId'] = $memberAcInfo[0]['memberId'];
+            $html = $this->load->view($this->uType.'/ajaxTdrMemberInfo', $page_data, true);
+            $this->jsonMsgReturn(true, 'This member already registerd TDR Account.',$html);
         } elseif($memberAcInfo > 0) { // return memberId
             $page_data['memberId'] = $memberAcInfo;
             $html = $this->load->view($this->uType.'/ajaxTdrMemberInfo', $page_data, true);
