@@ -30,11 +30,20 @@ class Deposit extends MX_Controller
 
     public function ajaxGetMemberInfo()
     {
-        $this->loadModel(['users/MembersModel']);
+        $this->loadModel(['users/MembersModel','users/MembersAccountInfoModel']);
         $page_data['memberAcID'] = $this->uri->segment(3);
-        $page_data['memberInformation'] = $this->MembersModel->getTwo($page_data['memberAcID']);
+        $page_data['memberInformation'] = $this->MembersModel->getMemberByAcID($page_data['memberAcID']);
 
-        $htmlData = $this->load->view($this->uType.'/ajaxGetMemberInfo', $page_data, true);
+        $accType = $this->uri->segment(4);
+        if($accType) {
+            $memberId = $this->MembersModel->getMemberId($page_data['memberAcID']);
+            $account = $this->MembersAccountInfoModel->getMemberAcInfo($memberId,$accType);
+            if($account) {
+                $htmlData['account'] = $account;
+            }            
+        }
+        
+        $htmlData['page'] = $this->load->view($this->uType.'/ajaxGetMemberInfo', $page_data, true);
         $this->jsonMsgReturn(true,'Found',$htmlData);
     }
 
@@ -44,7 +53,7 @@ class Deposit extends MX_Controller
         $post = $this->input->post();
         $checkValidation = $this->validationCheck($post);
         if($checkValidation) { // check validation
-            $memberInformation = $this->MembersModel->getTwo($post['memberId']); // member account id (not memberId)
+            $memberInformation = $this->MembersModel->getMemberByAcID($post['memberId']); // member account id (not memberId)
             if(!empty($memberInformation)){ // check valid member id
                 $post['memberId'] = $memberInformation[0]['memberId'];
                 $post['dr_cr'] = 'CR'; // CR for credit(saving) | DR for debit(withdrow)
@@ -73,8 +82,8 @@ class Deposit extends MX_Controller
     public function actionButtonSaving($savingId)
     {
         $button = '<div class="btn-group">
-        <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-sliders fa-2x" aria-hidden="true"></i>
-            <i class="fa fa-angle-down fa-2x"></i>
+        <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-sliders" aria-hidden="true"></i>
+            <i class="fa fa-angle-down"></i>
         </button>
         <ul class="dropdown-menu" role="menu">
             <li>
@@ -174,7 +183,10 @@ class Deposit extends MX_Controller
         $this->loadModel(['users/MembersAccountInfoModel']);
         $memberAcInfo = $this->MembersAccountInfoModel->getMemberByMemberAcID($_POST['memberAcID'],'DPS');
         if(is_array($memberAcInfo)){
-            $this->jsonMsgReturn(true, 'This member already registerd DPS Account.');
+            $page_data['memberAcInfo'] = $memberAcInfo;
+            $page_data['memberId'] = $memberAcInfo[0]['memberId'];
+            $html = $this->load->view($this->uType.'/ajaxDpsMemberInfo', $page_data, true);
+            $this->jsonMsgReturn(true, 'This member already registerd DPS Account.',$html);
         } elseif($memberAcInfo > 0) { // return memberId
             $page_data['memberId'] = $memberAcInfo;
             $html = $this->load->view($this->uType.'/ajaxDpsMemberInfo', $page_data, true);
@@ -207,7 +219,7 @@ class Deposit extends MX_Controller
         $post = $this->input->post();
         $checkValidation = $this->validationCheck($post);
         if($checkValidation) { // check validation           
-            $memberInformation = $this->MembersModel->getTwo($post['memberId']); // member account id (not memberId)
+            $memberInformation = $this->MembersModel->getMemberByAcID($post['memberId']); // member account id (not memberId)
             if(!empty($memberInformation)) { // check valid member id
                 $exist = $this->MembersAccountInfoModel->checkAccountExist($memberInformation[0]['memberId'],'DPS'); // check dps account exist
                 if($exist) {
@@ -328,7 +340,7 @@ class Deposit extends MX_Controller
         $post = $this->input->post();
         $checkValidation = $this->validationCheck($post);
         if($checkValidation) { // check validation           
-            $memberInformation = $this->MembersModel->getTwo($post['memberId']); // member account id (not memberId)
+            $memberInformation = $this->MembersModel->getMemberByAcID($post['memberId']); // member account id (not memberId)
             if(!empty($memberInformation)) { // check valid member id
                 $exist = $this->MembersAccountInfoModel->checkAccountExist($memberInformation[0]['memberId'],'SDF'); // check sdf account exist
                 if($exist) {

@@ -40,6 +40,18 @@ class MembersAccountInfoModel extends CI_Model {
         }
     }
 
+    public function getMemberAcInfo($memberId,$acType) 
+    {
+        $this->db->where('memberId',$memberId);
+        $this->db->where('accTypeID',$acType);
+        $result = $this->db->get($this->table);
+        if($result->num_rows() > 0) {
+            return $result->result_array();
+        } else {
+            return false;
+        }
+    }
+
     public function getMemberByMemberAcID($memberAcID,$accType)
     {
         $this->db->where('memberAcID',$memberAcID);

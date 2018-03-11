@@ -188,14 +188,14 @@
 							</label>
 							<div class="col-md-4">
 								<input name="members_introducer*introMemberID[]" type="text" class="form-control" placeholder="Member ID (Please input valid member id)" />
-								<input name="members_introducer*accType[]" value="General Savings" type="hidden" class="form-control" />
+								<input name="members_introducer*accType[]" value="Savings" type="hidden" class="form-control" />
 							</div>
 							<label class="control-label col-md-2">Introducer 2
 								<span class="required"> * </span>
 							</label>
 							<div class="col-md-3">
 								<input name="members_introducer*introMemberID[]" type="text" class="form-control" placeholder="Member ID (Please input valid member id)" />
-								<input name="members_introducer*accType[]" value="General Savings" type="hidden" class="form-control" />
+								<input name="members_introducer*accType[]" value="Savings" type="hidden" class="form-control" />
 							</div>
 						</div>
 						<!-- END INTRODUCER INFORMATION SECTION -->
@@ -261,7 +261,7 @@
 						<!-- START ACCOUNT TYPE INFORMATION SECTION -->
 						<div class="form-group">
 							<div class="col-md-11">
-								<input type="hidden" class="form-control" name="members_account_info*accTypeID" value="General Savings">
+								<input type="hidden" class="form-control" name="members_account_info*accTypeID" value="Savings">
 							</div>
 						</div>
 

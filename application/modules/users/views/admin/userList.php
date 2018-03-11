@@ -15,6 +15,7 @@
                         <th>Action</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Status</th>
                         <th>Acc. Create Date</th>
                     </tr>
                 </thead>
@@ -23,8 +24,8 @@
                     <tr id="rowId-<?php echo $each['id']; ?>">
                         <td>
                             <div class="btn-group">
-                                <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-sliders fa-2x" aria-hidden="true"></i>
-                                    <i class="fa fa-angle-down fa-2x"></i>
+                                <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-sliders" aria-hidden="true"></i>
+                                    <i class="fa fa-angle-down"></i>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
@@ -42,6 +43,15 @@
                         </td>                        
                         <td><?php echo $each['name']; ?></td>
                         <td><?php echo $each['email']; ?></td>
+                        <td>
+                            <?php if($each['userType'] == 1):
+                                    echo 'Admin';
+                                elseif($each['userType'] == 2):
+                                    echo 'Accountant';
+                                elseif($each['userType'] == 3):
+                                    echo 'Fild Officer';
+                                endif;?>
+                        </td>
                         <td><?php echo $each['dateTime']; ?></td>                      
                         
                     </tr>       

@@ -1,2 +1,2 @@
 savings
-savingsId-in,memberId-v,savingAmount-v,savingLaserNo-v,savingFildOfficerID-v,dr_cr-v,source-v,savingDate-v,createDate-v,modifiedDate-v
+savingsId-in,accountNo-v,memberId-v,savingAmount-v,savingLaserNo-v,savingFildOfficerID-v,dr_cr-v,source-v,savingDate-v,createDate-v,modifiedDate-v

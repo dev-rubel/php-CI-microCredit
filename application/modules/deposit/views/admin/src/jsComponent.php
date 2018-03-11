@@ -63,16 +63,34 @@ function appendData(div,msg){
 /* SAVING SECTION ONSCREEN MEMBER IMFORMATION SHOW */
 $("#memberId").keyup(function () {
     var value = $(this).val();
+    var acType = $('#accountType').val();
+    var accType = '';
+    if(acType) {
+        accType = acType;
+    }
     if(value){
         $.ajax({
-            url: '<?php echo base_url('deposit/ajaxGetMemberInfo/'); ?>'+value,
+            url: '<?php echo base_url('deposit/ajaxGetMemberInfo/'); ?>'+value+'/'+accType,
             success: function (response) {
                 var data = $.parseJSON(response);
-                $('#memberInformationHolder').html(data.html);
+                $('#memberInformationHolder').html(data.html.page);
+                
+                if(data.html.account) {
+                    $('#accountNo').html('');
+                    $.each(data.html.account, function(val, text) {
+                        $('#accountNo').append( new Option('Ac.ID: '+text.members_account_infoID,text.members_account_infoID) );
+                    });
+                    $('#submitButton').removeAttr('disabled');
+                } else {
+                    $('#accountNo').html('');
+                    $('#accountNo').append(new Option('No Account',''));
+                    $('#submitButton').attr('disabled','disabled');
+                }
             }
         });
     } else {
         $('#memberInformationHolder').html('');
+        $('#submitButton').attr('disabled','disabled');
     }
 
 });
@@ -286,6 +304,7 @@ $(document).ready(function() {
     var dpsList = ajaxDataTable('dps-list', 'deposit/ajaxDpsList');
     //sdf
     var sdfList = ajaxDataTable('sdf-list', 'deposit/ajaxSdfList');
+
 });
 
 function ajaxDataTable(id, url){
@@ -299,12 +318,13 @@ function ajaxDataTable(id, url){
            "url": "<?php echo base_url(); ?>"+url,
            "type": "POST"
        },
+    
        //Set column definition initialisation properties.
        "columnDefs": [
-       {
-           "targets": [ 0 ], //first column / numbering column
-           "orderable": false, //set not orderable
-       },
+        {
+            "targets": [ 0 ], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
        ],
 
    });

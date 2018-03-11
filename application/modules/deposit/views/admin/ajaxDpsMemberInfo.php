@@ -1,4 +1,40 @@
-
+<?php //print_r($memberAcInfo); 
+	if(!empty($memberAcInfo)):
+?>
+<div class="panel panel-success">
+	<div class="panel-heading">DPS Account History</div>
+	<div class="panel-body">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>TDR ID</th>
+					<th>Branch</th>
+					<th>Ward</th>
+					<th>Issue</th>
+					<th>Expire</th>
+					<th>Amount</th>
+					<th>Ac. Status</th>
+				</tr>				
+			</thead>
+			<tbody>
+			<?php foreach($memberAcInfo as $k=>$each): ?>
+				<tr>
+					<td><?php echo $k += 1; ?></td>
+					<td><?php echo $each['members_account_infoID']; ?></td>
+					<td><?php echo $each['accOpenBranchID'] ?></td>
+					<td><?php echo $each['accOpenWardID'] ?></td>
+					<td><?php echo $each['accIssueDate'] ?></td>
+					<td><?php echo $each['accExpireDate'] ?></td>
+					<td><?php echo $each['accAmount'] ?></td>
+					<td class="<?php echo $each['accStatus']==1?'success':'danger' ?>"><?php echo $each['accStatus']==1?'Active':'Inactive' ?></td>
+				</tr>
+			<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
+</div>
+<?php endif;?>
 <div class="panel panel-success">
 	<div class="panel-heading">Register DPS Account</div>
 	<div class="panel-body">

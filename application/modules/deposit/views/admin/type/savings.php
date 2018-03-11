@@ -34,11 +34,17 @@
 								<div class="form-group">
 									<div class="col-md-2">
 										<input type="text" name="memberId" id="memberId" class="form-control" placeholder="Account NO." />
+										<input type="hidden" name="accountType" id="accountType" value="Savings" disabled/>
+									</div>
+									<div class="col-md-2">
+										<select name="accountNo" id="accountNo" class="form-control">
+											<option value="">Select Savings</option>
+										</select>
 									</div>
 									<div class="col-md-2">
 										<input type="text" name="savingAmount" class="form-control" placeholder="Amount" />
 									</div>
-									<div class="col-md-2">
+									<div class="col-md-1">
 										<input type="text" name="savingLaserNo" class="form-control" placeholder="Laser NO." />
 									</div>
 									<div class="col-md-2">
@@ -47,11 +53,11 @@
 											<option value="name">Name</option>
 										</select>
 									</div>
-									<div class="col-md-2">
+									<div class="col-md-1">
 										<input class="date-picker form-control" name="savingDate" placeholder="Date" readonly/>
 									</div>
 									<div class="col-md-2">
-										<input type="submit" class="btn btn-info" value="Submit" />
+										<input type="submit" id="submitButton" class="btn btn-info" value="Submit" />
 									</div>
 								</div>
 							</div>
@@ -77,7 +83,7 @@
 							<thead>
 								<tr>
 									<th>#</th>
-									<th style="width: 20px !important;">Transaction ID</th>
+									<th>Transaction ID</th>
 									<th>Member ID</th>
 									<th>DR/CR</th>
 									<th>Amount</th>
@@ -88,6 +94,7 @@
 									<th>Action</th>
 								</tr>
 							</thead>
+							
 							<tbody>
 
 							</tbody>

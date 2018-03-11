@@ -24,7 +24,21 @@ class Branch extends MX_Controller
         $this->activeMenu('Branch');
         $data = ['Branch','content','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
 		$this->loadAllContent($data);	
-    }      
+    }
+
+    public function branch_page() 
+	{
+        $this->activeMenu('Branch');
+        $data = ['Add Branch','addBranch','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+		$this->loadAllContent($data);	
+    }
+
+    public function ward_page() 
+	{
+        $this->activeMenu('Add Ward');
+        $data = ['Add Ward','addWard','']; /* P1=TITLE|P2=PAGENAME|P3=PARAMITER */
+		$this->loadAllContent($data);	
+    }
 
 
 
@@ -63,6 +77,13 @@ class Branch extends MX_Controller
 		$data['adminFooter']    = $this->load->view('templeteSrc/footer',$data2,true);
         $data['adminFooterSrc'] = $this->load->view('templeteSrc/footerSrc',$data2,true);
         $this->load->view('templeteSrc/master',$data);
+    }
+
+    /* LOAD DATABASE MODEL  */
+    public function loadModel($models = [])
+    {
+        // $models = ['SavingsModel','users/MembersModel','users/MembersAccountInfoModel','users/MembersIntroducerModel','DpsModel','SdfModel'];
+        $this->load->model($models);
     }
 
     public function activeMenu($data)

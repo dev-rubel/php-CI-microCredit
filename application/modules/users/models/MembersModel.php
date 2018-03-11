@@ -27,7 +27,7 @@ class MembersModel extends CI_Model {
         return $result;
     }
 
-    public function getTwo($memberAcID)
+    public function getMemberByAcID($memberAcID)
     {
         $this->db->where('memberAcID', $memberAcID);
         $result = $this->db->get($this->table)->result_array();

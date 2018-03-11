@@ -15,7 +15,6 @@ class Users extends MX_Controller
 
     public function __construct()
     {
-
         $this->checkSession();
         $this->uType = returnUserType($_SESSION['userInfo']['userType']);
         $this->load->model('UsersModel');
@@ -73,8 +72,8 @@ class Users extends MX_Controller
     public function actionButton($memId)
     {
         $button = '<div class="btn-group">
-        <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-sliders fa-2x" aria-hidden="true"></i>
-            <i class="fa fa-angle-down fa-2x"></i>
+        <button class="btn btn-info btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-sliders" aria-hidden="true"></i>
+            <i class="fa fa-angle-down"></i>
         </button>
         <ul class="dropdown-menu" role="menu">
             <li>

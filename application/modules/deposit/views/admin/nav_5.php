@@ -3,7 +3,6 @@
         <i class="fa fa-id-card" aria-hidden="true"></i>
         <span class="title">Deposit</span>
         <span class="arrow"></span>
-
     </a>
     <ul class="sub-menu">
         <li class="nav-item <?php echo activeMenu('deposit','Savings');?>">

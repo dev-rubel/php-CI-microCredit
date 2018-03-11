@@ -2,15 +2,7 @@
 
 class DatatableModel extends CI_Model {
     
-	// var $table;
-    // var $column_order = [null,'memberAcID','memberShareID','memberAccountingID','memberName','memberGuardianName','memberGuardianPro','memberGuardianAge','memberPEaddrrs','memberPRaddrrs','memberNID','memberNationality','memberDOB','createDate','modifiedDate']; //set column field database for datatable orderable
-    // var $column_search = ['memberAcID','memberShareID','memberAccountingID','memberName','memberGuardianName','memberGuardianPro','memberGuardianAge','memberPEaddrrs','memberPRaddrrs','memberNID','memberNationality','memberDOB','createDate','modifiedDate']; //set column field database for datatable searchable 
-    // var $order; // default order 
-    // protected $table;
-    // protected $column_order;
-    // protected $column_search;
-    // protected $order;
- 
+	
     public function __construct()
     {
         parent::__construct();
@@ -63,14 +55,7 @@ class DatatableModel extends CI_Model {
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
-        $data = $query->result_array();        
-        // Change memberId to memberAcID
-        foreach($data as $k=>$each) {
-            $memberAcID = $this->db->get_where('members',['memberId'=>$each['memberId']])->row()->memberAcID;
-            $each['memberId'] = $memberAcID;
-            $result[] = $each;
-        }
-        return $result;
+        return $this->memAcToMemId($query);
     }
 
     /* FOR DPS SECTION */
@@ -80,14 +65,7 @@ class DatatableModel extends CI_Model {
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
-        $data = $query->result_array();        
-        // Change memberId to memberAcID
-        foreach($data as $k=>$each) {
-            $memberAcID = $this->db->get_where('members',['memberId'=>$each['memberId']])->row()->memberAcID;
-            $each['memberId'] = $memberAcID;
-            $result[] = $each;
-        }
-        return $result;
+        return $this->memAcToMemId($query);
     }
 
     /* FOR SDF SECTION */
@@ -97,7 +75,11 @@ class DatatableModel extends CI_Model {
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
-                
+        return $this->memAcToMemId($query);
+    }
+
+    function memAcToMemId($query) 
+    {
         // Change memberId to memberAcID
         if($query->num_rows() > 0) {
             $data = $query->result_array(); 
@@ -110,7 +92,6 @@ class DatatableModel extends CI_Model {
         } else {
             return [];
         }
-        
     }
 
     function get_list_of_data($array)

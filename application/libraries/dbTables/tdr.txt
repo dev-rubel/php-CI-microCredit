@@ -1,2 +1,2 @@
 tdr
-tdrId-in,memberId-v,tdrAmount-v,tdrLaserNo-v,tdrFildOfficerID-v,dr_cr-v,tdrDate-v,createDate-v,modifiedDate-v
+tdrId-in,accountNo-v,memberId-v,tdrAmount-v,tdrLaserNo-v,tdrFildOfficerID-v,dr_cr-v,tdrDate-v,createDate-v,modifiedDate-v

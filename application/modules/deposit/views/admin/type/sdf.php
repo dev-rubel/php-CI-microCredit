@@ -37,11 +37,17 @@
 									<div class="form-group">
 										<div class="col-md-2">
 											<input type="text" name="memberId" id="memberId" class="form-control" placeholder="Account NO." />
+											<input type="hidden" name="accountType" id="accountType" value="SDF" disabled/>
+										</div>
+										<div class="col-md-2">
+											<select name="accountNo" id="accountNo" class="form-control">
+												<option value="">Select DPS</option>
+											</select>
 										</div>
 										<div class="col-md-2">
 											<input type="text" class="form-control" name="sdfAmount" placeholder="Amount">
 										</div>
-										<div class="col-md-2">
+										<div class="col-md-1">
 											<input type="text" name="sdfLaserNo" class="form-control" placeholder="Laser NO." />
 										</div>
 										<div class="col-md-2">
@@ -50,11 +56,11 @@
 												<option value="name">Name</option>
 											</select>
 										</div>
-										<div class="col-md-2">
+										<div class="col-md-1">
 											<input class="date-picker form-control" name="sdfDate" placeholder="Date" readonly/>
 										</div>
 										<div class="col-md-2">
-											<input type="submit" class="btn btn-info" value="Submit" />
+											<input type="submit" id="submitButton" class="btn btn-info" value="Submit" />
 										</div>
 								</div>
 							</div>
