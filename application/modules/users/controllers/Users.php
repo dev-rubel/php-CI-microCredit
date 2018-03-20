@@ -18,6 +18,8 @@ class Users extends MX_Controller
         $this->checkSession();
         $this->uType = returnUserType($_SESSION['userInfo']['userType']);
         $this->load->model('UsersModel');
+
+        $this->load->library('grocery_CRUD');
     }
 
     public function index()
@@ -99,13 +101,34 @@ class Users extends MX_Controller
         $this->load->view($this->uType.'/'.'viewMember', $data);
     }
 
-    public function memberList()
+    public function memberList($data2 = null)
     {
+        if($data2 != null) {
+            $data2 = json_decode(json_encode($data2),true);
+        }
         $this->activeMenu('Member List');
         $data2['memberList'] = $this->UsersModel->memberList();
         $data = ['Member List','memberList',$data2];
         $this->loadAllContent($data);
     }
+
+    public function offices_management()
+	{
+        // https://www.grocerycrud.com/
+		try{
+			$crud = new grocery_CRUD();
+
+			$crud->set_theme('flexigrid');
+			$crud->set_table('login');
+
+			$output = $crud->render();
+
+			$this->memberList($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
 
     public function editMember()
     {

@@ -1,3 +1,8 @@
+<?php 
+//foreach($css_files as $file): ?>
+	<!-- <link type="text/css" rel="stylesheet" href="<?php //echo $file; ?>" /> -->
+<?php //endforeach; ?>
+
 <div class="portlet light bordered">
 	<div class="portlet-title tabbable-line">
 		<div class="caption">
@@ -46,7 +51,7 @@
 					</div>
 				</div>
 				<!-- END MEMBER LIST TABLE -->
-
+				<?php //echo $output; ?>
 			</div>
 			<div class="tab-pane" id="portlet_tab1">
 				<h1>Working.......</h1>
@@ -54,3 +59,6 @@
 		</div>
 	</div>
 </div>
+<?php //foreach($js_files as $file): ?>
+	<!-- <script src="<?php //echo $file; ?>"></script> -->
+<?php //endforeach; ?>
