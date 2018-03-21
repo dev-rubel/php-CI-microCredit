@@ -19,7 +19,7 @@ class Dashboard extends MX_Controller
         $this->checkSession();
         $this->uType = returnUserType($_SESSION['userInfo']['userType']);
         // LOAD INTEREST LOAD FOR ADD MOUNTHLY INTERSET (ADD EVERY MOUNTH 05)
-        $this->load->library('interest');
+        $this->load->library('Interest');
     }
     
     public function index() 
